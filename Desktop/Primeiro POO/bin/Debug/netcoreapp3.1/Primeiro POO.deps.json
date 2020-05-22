@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Primeiro POO/1.0.0": {
+        "runtime": {
+          "Primeiro POO.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Primeiro POO/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
