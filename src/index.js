@@ -5,14 +5,15 @@ import reportWebVitals from './reportWebVitals';
 import Menu from './components/menu/index.jsx';
 import Rodape from './components/rodape/index.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './pages/login/index';
+import Cadastrar from '.pages/cadastrar/index';
 
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <Menu />
+    <Cadastrar />
 
-    <Rodape />
   </React.StrictMode>,
   document.getElementById('root')
 );
