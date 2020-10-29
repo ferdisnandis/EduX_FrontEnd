@@ -2,19 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Menu from './components/menu/index.jsx';
+import Menu from './components/menu';
 import Rodape from './components/rodape/index.jsx';
+import Login from './pages/login';
+import Cadastrar from './pages/cadastrar'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './pages/login/index';
-import Cadastrar from '.pages/cadastrar/index';
-
-
+import { BrouserRouter as Router, Route, Link}  from "react-router-dom";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Cadastrar />
-
-  </React.StrictMode>,
+    <Cadastrar />,
   document.getElementById('root')
 );
 
