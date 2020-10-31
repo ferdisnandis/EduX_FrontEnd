@@ -2,10 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Menu from './components/menu';
-import Rodape from './components/rodape';
 //import Home from './pages/home'
 import Login from './pages/login';
+import Objetivos from './pages/objetivos';
 import Cadastrar from './pages/cadastrar'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch}  from "react-router-dom";
@@ -14,8 +13,9 @@ const routing = (
   <Router>
     <div>
       <Switch>
-        <Route exact path='/login' component={Login} />
-        <Route exact path='/cadastrar' component={Cadastrar} />
+        <Route exact path='/' component={Login} />
+        <Route path='/cadastrar' component={Cadastrar} />
+        <Route path='/objetivos' component={Objetivos} />
       </Switch>
     </div>
   </Router>
