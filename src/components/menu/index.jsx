@@ -1,24 +1,23 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-//import { render } from 'react-dom';
-import logo from '../../assets/img/logo_2.png';
-//import './index.css';
+import logo from '../../assets/img/logo_2.png'
 
 const Menu = () => {
     return(
-        <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="/"><img src={logo} alt='Logo da EduX' style={{ width: '100px'}} /></Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="nr-auto">
-              
-            </Nav>
-            <Nav>
-
-            </Nav>
-          </Navbar.Collapse>
-      </Navbar>
-    );
+    <Navbar bg="light" expand="lg">
+  <Navbar.Brand scr={logo} href="/">EduX</Navbar.Brand>
+  <Navbar.Toggle aria-controls="basic-navbar-nav" />
+  <Navbar.Collapse id="basic-navbar-nav">
+    <Nav className="mr-auto">
+      <Nav.Link href="/">Home</Nav.Link>
+    </Nav>
+    <Nav>
+        <Nav.Link href="/login">Login</Nav.Link>
+        <Nav.Link href="/cadastrar">cadastrar</Nav.Link>
+    </Nav>
+  </Navbar.Collapse>
+</Navbar>
+    )
 }
 
 export default Menu;

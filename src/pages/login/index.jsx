@@ -1,41 +1,38 @@
 import React from 'react';
-import Menu from '../../components/menu/index.jsx'
-import Rodape from '../../components/rodape/index.jsx'
+import Menu from '../../components/menu'
+import Rodape from '../../components/rodape'
+import { Container, Form, Button } from 'react-bootstrap'
 import logo from '../../assets/img/logo_2.png'
-import { Form, Button, FormGroup, FormControl } from 'react-bootstrap'
 import './index.css'
 
 const Login = () => {
     return (
         <div>
-            <Menu />
-                <Form className='form-signin' >
-                    <div className='text-center'>
-                        <img src={logo} alt="EduX Logo" style={{ width : '80px'}} />
-                    </div>
-                    <br/>
-                    <small>Informe os dados abaixo</small>
-                    <hr />
+    <Menu />
+<Container className='form-height'>
+    <Form className='form-signin'>
+        <div className = 'text-center'>
+            <img src={logo} alt='EduX' style={{ width : '64px' }} />
+            <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control type="email" placeholder="Insira seu email" />
+        </Form.Group>
 
-                    <FormGroup controlId="formBasicEmail">
-                        <h4>Insira seu email</h4>
-                        <FormControl type="text" placeholder="Insira seu email" required />
-                    </FormGroup>
+        <Form.Group controlId="formBasicPassword">
+            <Form.Label>Senha</Form.Label>
+            <Form.Control type="password" placeholder="Insira sua senha" />
+        </Form.Group>
 
-                    <FormGroup controlId="formBasicSenha">
-                        <h4>Insira sua senha</h4>
-                        <FormControl type="text" placeholder="Insira sua senha" required />
-                    </FormGroup>
-
-                    <Button variant="primary" type="submit">
-                        Enviar
-                    </Button>
-                    <br/><br/>
-                    <a href='/cadastrar' style={{marginTop : '30px'}}>Não tenho conta!</a>
-                </Form>
-            <Rodape />
+        <Button variant="primary" type="submit">
+            Entrar
+        </Button>
+        <br/><br/>
+        <a href='/cadastrar' style={{ marginTop : '30px'}}>Quero criar minha conta!</a>
+        </div>
+    </Form>
+</Container>
+        <Rodape />
         </div>
     )
 }
-
 export default Login;

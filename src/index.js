@@ -1,25 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import reportWebVitals from './reportWebVitals';
-import Menu from './components/menu';
-import Rodape from './components/rodape';
-//import Home from './pages/home'
-import Login from './pages/login';
+import Home from './pages/home'
+import Login from './pages/login'
 import Cadastrar from './pages/cadastrar'
+import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Switch}  from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import NaoEncontrado from './pages/naoencontrado/naoencontrado';
 
+//Rotas da aplicação
 const routing = (
   <Router>
-    <div>
       <Switch>
-        <Route exact path='/login' component={Login} />
-        <Route exact path='/cadastrar' component={Cadastrar} />
+        <Route exact path='/' component={Home} />
+        <Route path='/login' component={Login} />
+        <Route path='/cadastrar' component={Cadastrar} />
+        <Route component={NaoEncontrado} />
       </Switch>
-    </div>
   </Router>
 )
+
 ReactDOM.render(
     routing,
   document.getElementById('root')
