@@ -51,6 +51,10 @@ const Menu = () => {
       }
   }
 
+import { Navbar, Nav } from 'react-bootstrap';
+import logo from '../../assets/img/logo_2.png'
+
+const Menu = () => {
     return(
     <Navbar bg="light" expand="lg">
   <Navbar.Brand scr={logo} href="/">EduX</Navbar.Brand>
@@ -61,9 +65,13 @@ const Menu = () => {
     </Nav>
 
     { renderMenu() }
+    <Nav>
+        <Nav.Link href="/login">Login</Nav.Link>
+        <Nav.Link href="/cadastrar">cadastrar</Nav.Link>
+    </Nav>
   </Navbar.Collapse>
 </Navbar>
     )
 }
-
+}
 export default Menu;

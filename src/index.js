@@ -8,7 +8,6 @@ import Home from './pages/home'
 import Cadastrar from './pages/cadastrar'
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TimeLine from './pages/timeline';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import NaoEncontrado from './pages/naoencontrado/naoencontrado';
 
@@ -24,7 +23,6 @@ const routing = (
       <Route component={NaoEncontrado} />
       <Route exact path='/professor/dashboard' component={Dashboard} />
       <Route path='/timeline' component={TimeLine} />
-
     </Switch>
   </Router>
 )
