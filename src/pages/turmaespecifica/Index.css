@@ -1,0 +1,27 @@
+html,
+.Width{
+    max-width: 100%;
+}
+.Superior{
+    margin-top: 2%;
+    margin-left: 3%;
+    margin-right: 3%;
+    /* background-color: black; */
+}
+.esquerda{
+    padding-bottom: 3%;
+}
+.objetivosocultos{
+    padding-top: 25%;
+}
+.Raking{
+    padding-top: 10%;
+}
+.Container{
+    display: inline;
+    margin: auto;
+}
+.Lateral h1{
+    padding-bottom: 8%;
+}
+
