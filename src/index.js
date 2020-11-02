@@ -1,15 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-<<<<<<< HEAD
-import reportWebVitals from './reportWebVitals';
-//import Home from './pages/home'
+import Turma from './pages/turmaespecifica';
 import Login from './pages/login';
-import Objetivos from './pages/objetivos';
-=======
+import Objetivos from './pages/objetivos_teste';
 import Home from './pages/home'
-import Login from './pages/login'
->>>>>>> 170f096b1699054c48aa1435fb3b84ee433de32c
 import Cadastrar from './pages/cadastrar'
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,23 +14,19 @@ import NaoEncontrado from './pages/naoencontrado/naoencontrado';
 //Rotas da aplicação
 const routing = (
   <Router>
-      <Switch>
-<<<<<<< HEAD
-        <Route exact path='/' component={Login} />
-        <Route path='/cadastrar' component={Cadastrar} />
-        <Route path='/objetivos' component={Objetivos} />
-=======
-        <Route exact path='/' component={Home} />
-        <Route path='/login' component={Login} />
-        <Route path='/cadastrar' component={Cadastrar} />
-        <Route component={NaoEncontrado} />
->>>>>>> 170f096b1699054c48aa1435fb3b84ee433de32c
-      </Switch>
+    <Switch>
+      <Route exact path='/' component={Home} />
+      <Route path='/objetivos' component={Objetivos} />
+      <Route path='/login' component={Login} />
+      <Route path='/cadastrar' component={Cadastrar} />
+      <Route path='/turma' component={Turma} />
+      <Route component={NaoEncontrado} />
+    </Switch>
   </Router>
 )
 
 ReactDOM.render(
-    routing,
+  routing,
   document.getElementById('root')
 );
 

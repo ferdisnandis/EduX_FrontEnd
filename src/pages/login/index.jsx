@@ -8,30 +8,30 @@ import './index.css'
 const Login = () => {
     return (
         <div>
-    <Menu />
-<Container className='form-height'>
-    <Form className='form-signin'>
-        <div className = 'text-center'>
-            <img src={logo} alt='EduX' style={{ width : '64px' }} />
-            <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control type="email" placeholder="Insira seu email" />
-        </Form.Group>
+            <Menu />
+            <Container className='form-height'>
+                <Form className='form-signin'>
+                    <div className='text-center'>
+                        <img src={logo} alt='EduX' style={{ width: '64px' }} />
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" placeholder="Insira seu email" />
+                        </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-            <Form.Label>Senha</Form.Label>
-            <Form.Control type="password" placeholder="Insira sua senha" />
-        </Form.Group>
+                        <Form.Group controlId="formBasicPassword">
+                            <Form.Label>Senha</Form.Label>
+                            <Form.Control type="password" placeholder="Insira sua senha" />
+                        </Form.Group>
 
-        <Button variant="primary" type="submit">
-            Entrar
+                        <Button variant="primary" type="submit">
+                            Entrar
         </Button>
-        <br/><br/>
-        <a href='/cadastrar' style={{ marginTop : '30px'}}>Quero criar minha conta!</a>
-        </div>
-    </Form>
-</Container>
-        <Rodape />
+                        <br /><br />
+                        <a href='/cadastrar' style={{ marginTop: '30px' }}>Quero criar minha conta!</a>
+                    </div>
+                </Form>
+            </Container>
+            <Rodape />
         </div>
     )
 }
