@@ -2,7 +2,6 @@ import React, {useState, event} from 'react';
 import Menu from '../../components/menu'
 import Rodape from '../../components/rodape'
 import { Container, Jumbotron, ListGroup, Card, Button, Col, Row, FormGroup, FormFile } from 'react-bootstrap'
-
 import './index.css'
 
 

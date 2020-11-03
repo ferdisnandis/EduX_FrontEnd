@@ -47,22 +47,19 @@ const Menu = () => {
         )
       }
   }
-   return(
-     <Navbar bg="light" expand="lg">
-   <Navbar.Brand scr={logo} href="/">EduX</Navbar.Brand>
-   <Navbar.Toggle aria-controls="basic-navbar-nav" />
-   <Navbar.Collapse id="basic-navbar-nav">
-     <Nav className="mr-auto">
-       <Nav.Link href="/">Home</Nav.Link>
-     </Nav>
+    return(
+    <Navbar bg="light" expand="lg">
+  <Navbar.Brand scr={logo} href="/">EduX</Navbar.Brand>
+  <Navbar.Toggle aria-controls="basic-navbar-nav" />
+  <Navbar.Collapse id="basic-navbar-nav">
+    <Nav className="mr-auto">
+      <Nav.Link href="/">Home</Nav.Link>
+    </Nav>
 
-     { renderMenu() }
-     <Nav>
-         <Nav.Link href="/login">Login</Nav.Link>
-         <Nav.Link href="/cadastrar">cadastrar</Nav.Link>
-     </Nav>
-   </Navbar.Collapse>
- </Navbar> 
-  )
+    { renderMenu() }
+
+  </Navbar.Collapse>
+</Navbar>
+    )
 }
 export default Menu;
