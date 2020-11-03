@@ -10,8 +10,6 @@ import CrudObjetivo from './pages/professor/crudObjetivos'
 import Home from './pages/home'
 import Cadastrar from './pages/cadastrar'
 import reportWebVitals from './reportWebVitals';
-import Dashboard from './pages/professor/dashboard'
-import TimeLine from './pages/timeline'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import jwt_decode from 'jwt-decode';
 import SemPermissao from './pages/sempermissao'
