@@ -3,7 +3,7 @@ import './index.css';
 import { NavDropdown, Navbar, Nav } from 'react-bootstrap';
 import jwt_decode from 'jwt-decode';
 import { useHistory } from 'react-router-dom'
-import logo from '../../assets/img/logo_2.png'
+import logo from './../../assets/logo_2.png'
 
 const Menu = () => {
   const history = useHistory();
@@ -54,7 +54,7 @@ const Menu = () => {
 
     return(
       <Navbar bg="light" expand="lg">
-  <Navbar.Brand scr={logo} href="/">EduX</Navbar.Brand>
+  <Navbar.Brand scr={logo} href="/"></Navbar.Brand>
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">

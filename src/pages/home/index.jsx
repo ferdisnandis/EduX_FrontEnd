@@ -3,22 +3,50 @@ import React from 'react';
 import { Carousel, Jumbotron, Button , Col, Row, Container, Card} from 'react-bootstrap';
 import Menu from '../../components/menu/'
 import Rodape from '../../components/rodape/'
+import './../home/index.css';
+
 
 const Home = () => {
-    <link rel="stylesheet" href="css/style.css" type="text/css"></link>
     return (
     <div>
         <Menu />
-        <Carousel>
-            <Carousel.Item>
-               <div className="border">
-               <img
-                className="d-block w-100"
-                src="https://assets.st-note.com/production/uploads/images/29773136/rectangle_large_type_2_6136114741dd83dac3dbb0697374024b.jpg"
-                alt="First slide"
-                />
+ <Carousel>
+  <Carousel.Item>
+    <img
+      className="d-block w-100"
+      src="https://image.freepik.com/free-vector/vector-illustration-people-learning-repair-machines-trade-school-vocational-university-college-institution-vocational-education_4968-650.jpg"
+      alt="First slide"
+    />
+    <Carousel.Caption>
+      <h3>First slide label</h3>
+      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+    </Carousel.Caption>
+  </Carousel.Item>
+  <Carousel.Item>
+    <img
+      className="d-block w-100"
+      src="https://image.freepik.com/free-vector/coding-create-artificial-intelligence-program-looking-bug-artificial-brain-robot-smart-technology-artificial-intelligence-internet-things_4968-705.jpg"
+      alt="Third slide"
+    />
 
-               </div>
+    <Carousel.Caption>
+      <h3>Second slide label</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </Carousel.Caption>
+  </Carousel.Item>
+  <Carousel.Item>
+    <img
+      className="d-block w-100"
+      src="https://image.freepik.com/free-vector/time-management-work-multitasking-managing-time-security-scheduling_4968-683.jpg"
+      alt="four slide"
+    />
+
+    <Carousel.Caption>
+      <h3>Third slide label</h3>
+      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+    </Carousel.Caption>
+  </Carousel.Item>
+</Carousel>
         <Jumbotron className="text-center">
             <h1>Bem vindo a EduX</h1>
                 <p>
@@ -69,8 +97,6 @@ const Home = () => {
 
         </Row>
         </Container>
-            </Carousel.Item>
-        </Carousel>
         <Rodape />
     </div>
     )
