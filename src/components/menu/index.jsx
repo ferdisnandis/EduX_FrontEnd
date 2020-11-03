@@ -27,9 +27,7 @@ const Menu = () => {
       } else if ( jwt_decode(token).role === 'professor'){
         return(
         <Nav>
-          <Nav.Link href='/professor/dashboard'>Dashboard</Nav.Link>
-          <Nav.Link href='/timeline'>TimeLine</Nav.Link>
-          <Nav.Link href='/professor/dashboard'>Sair</Nav.Link>
+         
           <NavDropdown title={jwt_decode(token).nome} id="basic-nav-dropdown">
         <NavDropdown.Item href="/perfil">Perfil</NavDropdown.Item>
         <NavDropdown.Divider />
@@ -40,8 +38,7 @@ const Menu = () => {
       } else {
         return(
         <Nav>
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/timeline">TimeLine</Nav.Link>
+          
           <NavDropdown title={jwt_decode(token).nome} id="basic-nav-dropdown">
         <NavDropdown.Item href="/perfil">Perfil</NavDropdown.Item>
         <NavDropdown.Divider />
@@ -51,7 +48,6 @@ const Menu = () => {
         )
       }
   }
-
     return(
       <Navbar bg="light" expand="lg">
   <Navbar.Brand scr={logo} href="/"></Navbar.Brand>
@@ -67,5 +63,4 @@ const Menu = () => {
 </Navbar>
     )
 }
-
 export default Menu;
