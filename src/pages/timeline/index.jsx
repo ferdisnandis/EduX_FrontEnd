@@ -1,6 +1,6 @@
 import React from 'react';
-import Menu from '../../components/Menu'
-import Rodape from '../../componentes/Rodape'
+import Menu from '../../components/menu'
+import Rodape from '../../components/rodape'
 
 const TimeLine = () => {
     return(

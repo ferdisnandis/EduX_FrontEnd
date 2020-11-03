@@ -3,7 +3,7 @@ import Menu from '../../components/menu'
 import Rodape from '../../components/rodape'
 import { Container, Jumbotron, ListGroup, Card, Button, Col, Row } from 'react-bootstrap'
 import logo from '../../assets/img/logo_2.png'
-import './index.css'
+import './Index.css'
 
 
 const Turma = () => {

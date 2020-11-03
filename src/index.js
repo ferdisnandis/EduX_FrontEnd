@@ -1,4 +1,6 @@
 import React from 'react';
+import Dashboard from './pages/professor/dashboard'
+import TimeLine from './pages/timeline'
 import ReactDOM from 'react-dom';
 import './index.css';
 import Turma from './pages/turmaespecifica';

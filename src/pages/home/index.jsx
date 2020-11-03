@@ -5,24 +5,27 @@ import Menu from '../../components/menu/'
 import Rodape from '../../components/rodape/'
 
 const Home = () => {
+    <link rel="stylesheet" href="css/style.css" type="text/css"></link>
     return (
     <div>
         <Menu />
         <Carousel>
             <Carousel.Item>
-                <img
+               <div className="border">
+               <img
                 className="d-block w-100"
                 src="https://assets.st-note.com/production/uploads/images/29773136/rectangle_large_type_2_6136114741dd83dac3dbb0697374024b.jpg"
                 alt="First slide"
                 />
 
+               </div>
         <Jumbotron className="text-center">
             <h1>Bem vindo a EduX</h1>
                 <p>
                     Uma nova maneira de estudar!
                 </p>
                 <p>
-                    <Button style={{ background : '#00c2ee'}} variant="primary" href='/login' >Login</Button> <Button style={{ background : '#00c2ee'}} variant="primary" href='/cadastrar'>Cadastrar</Button>
+                    <Button href='/login' >Login</Button> <Button style={{ background : '#00c2ee'}} variant="primary" href='/cadastrar'>Cadastrar</Button>
                 </p>
         </Jumbotron>
         <Container>
