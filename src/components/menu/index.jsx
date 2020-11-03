@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavDropdown, Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import jwt_decode from 'jwt-decode';
 import { useHistory } from 'react-router-dom'
 import logo from '../../assets/img/logo_2.png'
@@ -26,9 +26,7 @@ const Menu = () => {
       } else if ( jwt_decode(token).role === 'professor'){
         return(
         <Nav>
-          <Nav.Link href='/professor/dashboard'>Dashboard</Nav.Link>
-          <Nav.Link href='/timeline'>TimeLine</Nav.Link>
-          <Nav.Link href='/professor/dashboard'>Sair</Nav.Link>
+         
           <NavDropdown title={jwt_decode(token).nome} id="basic-nav-dropdown">
         <NavDropdown.Item href="/perfil">Perfil</NavDropdown.Item>
         <NavDropdown.Divider />
@@ -39,8 +37,7 @@ const Menu = () => {
       } else {
         return(
         <Nav>
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/timeline">TimeLine</Nav.Link>
+          
           <NavDropdown title={jwt_decode(token).nome} id="basic-nav-dropdown">
         <NavDropdown.Item href="/perfil">Perfil</NavDropdown.Item>
         <NavDropdown.Divider />
@@ -50,28 +47,22 @@ const Menu = () => {
         )
       }
   }
+   return(
+     <Navbar bg="light" expand="lg">
+   <Navbar.Brand scr={logo} href="/">EduX</Navbar.Brand>
+   <Navbar.Toggle aria-controls="basic-navbar-nav" />
+   <Navbar.Collapse id="basic-navbar-nav">
+     <Nav className="mr-auto">
+       <Nav.Link href="/">Home</Nav.Link>
+     </Nav>
 
-import { Navbar, Nav } from 'react-bootstrap';
-import logo from '../../assets/img/logo_2.png'
-
-const Menu = () => {
-    return(
-    <Navbar bg="light" expand="lg">
-  <Navbar.Brand scr={logo} href="/">EduX</Navbar.Brand>
-  <Navbar.Toggle aria-controls="basic-navbar-nav" />
-  <Navbar.Collapse id="basic-navbar-nav">
-    <Nav className="mr-auto">
-      <Nav.Link href="/">Home</Nav.Link>
-    </Nav>
-
-    { renderMenu() }
-    <Nav>
-        <Nav.Link href="/login">Login</Nav.Link>
-        <Nav.Link href="/cadastrar">cadastrar</Nav.Link>
-    </Nav>
-  </Navbar.Collapse>
-</Navbar>
-    )
-}
+     { renderMenu() }
+     <Nav>
+         <Nav.Link href="/login">Login</Nav.Link>
+         <Nav.Link href="/cadastrar">cadastrar</Nav.Link>
+     </Nav>
+   </Navbar.Collapse>
+ </Navbar> 
+  )
 }
 export default Menu;

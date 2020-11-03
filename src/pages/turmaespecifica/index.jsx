@@ -1,12 +1,19 @@
-import React from 'react';
+import React, {useState, event} from 'react';
 import Menu from '../../components/menu'
 import Rodape from '../../components/rodape'
-import { Container, Jumbotron, ListGroup, Card, Button, Col, Row } from 'react-bootstrap'
-import logo from '../../assets/img/logo_2.png'
+import { Container, Jumbotron, ListGroup, Card, Button, Col, Row, FormGroup, FormFile } from 'react-bootstrap'
+
 import './index.css'
 
 
 const Turma = () => {
+    const [urlImagem, setUrlImagem] = useState(''); 
+    const [objetivoaluno, setobjetivoaluno] = useState([]); 
+
+    const uploadFile = () => {
+        event.preventDefault();
+    }
+
     return (
         <div>
             <Menu />
@@ -29,7 +36,7 @@ const Turma = () => {
 
                             <div className='objetivosconcluidos'>
                                 <h3>
-                                    Normais
+                                   Objetivos Normais
                                 </h3>
                                 <Card>
                                     <Card.Header>Objetivos</Card.Header>
@@ -69,7 +76,7 @@ const Turma = () => {
 
                                 <div className='objetivosocultos'>
                                     <h3>
-                                        Ocultos
+                                      Objetivos Ocultos
                                 </h3>
                                     <Card>
                                         <Card.Header>Objetivos</Card.Header>
@@ -124,6 +131,9 @@ const Turma = () => {
                                         <Button variant="primary">Formulario</Button>
                                     </Card.Body>
                                 </Card>
+                                <FormGroup>
+                                    <FormFile id="fileObjetivoAluno" label="Objetivo do Aluno Concluido" onChange={event => {uploadFile(event)}} />
+                                </FormGroup>
                             </div>
                         </Col>
                     </Row>
