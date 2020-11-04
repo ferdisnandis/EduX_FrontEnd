@@ -1,8 +1,9 @@
 import React from 'react';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import './index.css';
+import { NavDropdown, Navbar, Nav } from 'react-bootstrap';
 import jwt_decode from 'jwt-decode';
 import { useHistory } from 'react-router-dom'
-import logo from '../../assets/img/logo_2.png'
+import logo from './../../assets/logo_2.png'
 
 const Menu = () => {
   const history = useHistory();
@@ -18,9 +19,9 @@ const Menu = () => {
 
     if(token === null){
       return(
-        <Nav>
-          <Nav.Link href="/login">Login</Nav.Link>
-          <Nav.Link href="/cadastrar">Cadastrar</Nav.Link>
+          <Nav>
+         <div className="login"> <Nav.Link href="/login">Login</Nav.Link></div>
+          <div className="cadastrar"><Nav.Link href="/cadastrar">Cadastrar</Nav.Link></div>
         </Nav>
         )
       } else if ( jwt_decode(token).role === 'professor'){
