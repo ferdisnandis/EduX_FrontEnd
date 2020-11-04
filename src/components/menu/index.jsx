@@ -47,17 +47,15 @@ const Menu = () => {
         )
       }
   }
-    return(
-    <Navbar bg="light" expand="lg">
-  <Navbar.Brand scr={logo} href="/">EduX</Navbar.Brand>
-  <Navbar.Toggle aria-controls="basic-navbar-nav" />
-  <Navbar.Collapse id="basic-navbar-nav">
-    <Nav className="mr-auto">
-      <Nav.Link href="/">Home</Nav.Link>
-    </Nav>
-
+   return(
+     <Navbar bg="light" expand="lg">
+   <Navbar.Brand scr={logo} href="/">EduX</Navbar.Brand>
+   <Navbar.Toggle aria-controls="basic-navbar-nav" />
+   <Navbar.Collapse id="basic-navbar-nav">
+     <Nav className="mr-auto">
+       <Nav.Link href="/">Home</Nav.Link>
+     </Nav>
     { renderMenu() }
-
   </Navbar.Collapse>
 </Navbar>
     )
