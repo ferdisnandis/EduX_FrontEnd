@@ -3,7 +3,7 @@ import './index.css';
 import { NavDropdown, Navbar, Nav } from 'react-bootstrap';
 import jwt_decode from 'jwt-decode';
 import { useHistory } from 'react-router-dom'
-import logo from './../../assets/logo_2.png'
+import logo from '../../assets/img/logo_2.png'
 
 const Menu = () => {
   const history = useHistory();
@@ -11,7 +11,7 @@ const Menu = () => {
   const Sair = (event) => {
     event.preventDefault();
     localStorage.removeItem('token-edux');
-    history.push('/home')
+    history.push('/')
   }
 
   const renderMenu = () => {
@@ -24,11 +24,12 @@ const Menu = () => {
           <div className="cadastrar"><Nav.Link href="/cadastrar">Cadastrar</Nav.Link></div>
         </Nav>
         )
-      } else if ( jwt_decode(token).role === 'professor'){
+      } else if ( jwt_decode(token).role === '3fa85f64-5717-4562-b3fc-2c963f66afa6'){
         return(
         <Nav>
-         
-          <NavDropdown title={jwt_decode(token).nome} id="basic-nav-dropdown">
+         <Nav.Link href="/professor/crudObjetivo">Objetivo</Nav.Link>
+         <Nav.Link href="/timeline">Timeline</Nav.Link>
+          <NavDropdown title={jwt_decode(token).nameid} id="basic-nav-dropdown">
         <NavDropdown.Item href="/perfil">Perfil</NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={event => Sair(event)}>Sair</NavDropdown.Item>
@@ -38,8 +39,9 @@ const Menu = () => {
       } else {
         return(
         <Nav>
-          
-          <NavDropdown title={jwt_decode(token).nome} id="basic-nav-dropdown">
+          <Nav.Link href="/timeline">TimeLine</Nav.Link>
+          <Nav.Link href="/turma">Turma</Nav.Link>
+          <NavDropdown title={jwt_decode(token).nameid} id="basic-nav-dropdown">
         <NavDropdown.Item href="/perfil">Perfil</NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={event => Sair(event)}>Sair</NavDropdown.Item>

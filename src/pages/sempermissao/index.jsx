@@ -7,8 +7,8 @@ const SemPermissao = () => {
     return (
         <div>
             <Menu />
-                <h1>Sem autorização</h1>
-                <p>Infelizmente você não tem acesso a essa página</p>
+                <h1 className='text-center'>Sem autorização</h1>
+                <p className='text-center'>Infelizmente você não tem acesso a essa página</p>
             <Rodape />
         </div>
     )

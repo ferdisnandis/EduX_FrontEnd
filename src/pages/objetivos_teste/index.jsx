@@ -32,7 +32,7 @@ const Objetivos = () => {
     return (
         <div>
             <Menu />
-            <div class="container-fluid">
+            <div className="container-fluid">
                 <Carousel interval={null}>
                     <Carousel.Item onClick={setContentList1} style={{ 'height': "700px" }}>
                         <img

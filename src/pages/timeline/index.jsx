@@ -3,7 +3,7 @@ import Menu from '../../components/menu'
 import Rodape from '../../components/rodape'
 
 const TimeLine = () => {
-    return(
+    return (
         <div>
             <Menu />
                 <h1>TimeLine</h1>
@@ -11,4 +11,4 @@ const TimeLine = () => {
         </div>
     )
 }
-export default TimeLine
+export default TimeLine;

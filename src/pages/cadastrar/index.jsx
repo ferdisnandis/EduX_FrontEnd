@@ -6,6 +6,7 @@ import logo from '../../assets/img/logo_2.png'
 import './index.css'
 
 const Cadastrar = () => {
+    
     return (
         <div>
             <Menu />
