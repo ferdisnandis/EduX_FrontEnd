@@ -7,6 +7,7 @@ import logo from '../../assets/img/logo_2.png'
 import './index.css'
 
 const Login = () => {
+    let history = useHistory();
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
@@ -24,7 +25,29 @@ const Login = () => {
                 'content-type' : 'application/json'
             }
         })
-        .then(response => console.log(response.json()));
+        .then(response => {
+            if(response.ok){
+                return response.json();
+            }
+
+            alert('Dados inválidos')
+        })
+        .then(data => {
+            localStorage.setItem('token-edux', data.token);
+
+            let usuario = jwt_decode(data.token);
+
+            //Informações do usuário decodificado no console
+            console.log(usuario);
+            
+            if(usuario.role === '3fa85f64-5717-4562-b3fc-2c963f66afa6'){
+                history.push('/professor/crudObjetivo');
+            } else {
+                history.push('/timeline')
+            }
+        
+        })
+        .catch(err => console.error(err))
     }
  
     return (
@@ -36,7 +59,7 @@ const Login = () => {
                         <img src={logo} alt='EduX' style={{ width: '64px' }} />
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" placeholder="Insira seu email" value={email} onChange={event => setEmail(event.target.value)}required/>
+                            <Form.Control type="email" placeholder="Insira seu email" value={email} onChange={event => setEmail(event.target.value)} required/>
                         </Form.Group>
 
                         <Form.Group controlId="formBasicPassword">

@@ -8,8 +8,8 @@ import ModalHeader from 'react-bootstrap/ModalHeader'
 import ModalTitle from 'react-bootstrap/ModalTitle'
 import ModalBody from 'react-bootstrap/ModalBody'
 import ModalFooter from 'react-bootstrap/ModalFooter'
-import './index.css'
 import { url } from '../../utils/constant'
+import './../turmaespecifica'
 
 
 
