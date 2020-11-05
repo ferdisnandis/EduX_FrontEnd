@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { url } from '../../utils/constant'
 import Menu from '../../components/menu'
 import Rodape from '../../components/rodape'
 import { Container, Form, Button } from 'react-bootstrap'
@@ -16,7 +17,7 @@ const Login = () => {
     const Logar = (event) => {
         event.preventDefault();
 
-        fetch('https://localhost:64557/api/login', {
+        fetch( url + '/login', {
             method : 'POST',
             body : JSON.stringify(login), 
             headers : {

@@ -5,8 +5,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Turma from './pages/turmaespecifica';
 import Login from './pages/login';
-import Dashboard from './pages/professor/dashboard'
-import TimeLine from './pages/timeline'
 import Objetivos from './pages/objetivos_teste';
 import CrudObjetivo from './pages/professor/crudObjetivos'
 import Home from './pages/home'
