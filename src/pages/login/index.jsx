@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import {url} from '../../utils/constant'
-import jwt_decode from "jwt-decode";
-import { useHistory } from 'react-router-dom';
+import { url } from '../../utils/constant'
 import Menu from '../../components/menu'
 import Rodape from '../../components/rodape'
 import { Container, Form, Button } from 'react-bootstrap'
@@ -20,7 +18,7 @@ const Login = () => {
     const Logar = (event) => {
         event.preventDefault();
 
-        fetch(url + '/api/login', {
+        fetch( url + '/login', {
             method : 'POST',
             body : JSON.stringify(login), 
             headers : {

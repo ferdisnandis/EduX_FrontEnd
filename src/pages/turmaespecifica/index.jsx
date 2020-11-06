@@ -8,8 +8,8 @@ import ModalHeader from 'react-bootstrap/ModalHeader'
 import ModalTitle from 'react-bootstrap/ModalTitle'
 import ModalBody from 'react-bootstrap/ModalBody'
 import ModalFooter from 'react-bootstrap/ModalFooter'
-import './index.css'
 import { url } from '../../utils/constant'
+import './../turmaespecifica'
 
 
 
@@ -19,36 +19,48 @@ const Turma = () => {
     const [categoria, setCategoria] = useState('');
     const [idcategoria, setIdCategoria] = useState('0');
     const [urlImagem, setUrlImagem] = useState('');
-    const [realizado, setRealizado] = useState([]);
-    const [pendente, setPendente] = useState([])
+    const [objetivo, setObjetivo] = useState([])
+    // const [realizado, setRealizado] = useState([]);
+    // const [pendente, setPendente] = useState([])
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
 
     useEffect(() => {
-        listarRealizado()
-        listarPendente()
+        // listarRealizado()
+        // listarPendente()
+        listar()
     }, [])
 
-    const listarRealizado = () => {
-        fetch(url + '/objetivoaluno/ListarObjetivosPorAluno/00C077ED-0EB2-4B16-A928-4EAEAB05BBF1/false')
+    const listar = () => {
+        fetch(url + '/objetivoaluno')
             .then(response => response.json())
             .then(data => {
-                setRealizado(data)
-                console.log(data);
+                setObjetivo(data.data)
+                console.log(data.data);
             })
             .catch(err => console.error(err));
     }
-    const listarPendente = () => {
-        fetch(url + '/objetivoaluno/ListarObjetivosPorAluno/00C077ED-0EB2-4B16-A928-4EAEAB05BBF1/true')
-            .then(response => response.json())
-            .then(data => {
-                setPendente(data)
-                console.log(data);
-            })
-            .catch(err => console.error(err));
-    }
+
+    // const listarRealizado = () => {
+    //     fetch(url + '/objetivoaluno/ListarObjetivosPorAluno/00C077ED-0EB2-4B16-A928-4EAEAB05BBF1/false')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             setRealizado(data)
+    //             console.log(data);
+    //         })
+    //         .catch(err => console.error(err));
+    // }
+    // const listarPendente = () => {
+    //     fetch(url + '/objetivoaluno/ListarObjetivosPorAluno/00C077ED-0EB2-4B16-A928-4EAEAB05BBF1/true')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             setPendente(data)
+    //             console.log(data);
+    //         })
+    //         .catch(err => console.error(err));
+    // }
 
     return (
         <div>
@@ -74,7 +86,7 @@ const Turma = () => {
                                     Objetivos Completos
                                 </h3>
                                 {
-                                    realizado.map((item, index) => {
+                                    objetivo.map((item, index) => {
                                         return (
                                             <Card style={{ height: '140px' }}>
                                                 <Card.Header>Objetivos</Card.Header>
@@ -83,7 +95,7 @@ const Turma = () => {
                                                         <p style={{ fontSize: '20px', marginTop: '-10px' }}>Sprint 2</p>
                                                     </Card.Title>
                                                     <Card.Text>
-                                                        <p>{item.objetivo.descricao}</p>
+                                                        <p>{item.descricao}</p>
                                                     </Card.Text>
                                                 </Card.Body>
                                             </Card>
@@ -131,16 +143,16 @@ const Turma = () => {
                                     Objetivos Pendentes
                                 </h1>
                                 {
-                                    pendente.map((item, index) => {
+                                    objetivo.map((item, index) => {
                                         return (
                                             <Card>
                                                 <Card.Header>Objetivos</Card.Header>
                                                 <Card.Body style={{ backgroundColor: '#f9e800' }}>
                                                     <Card.Title>
-                                                        {item.objetivo.categoria.tipo}
+                                                        {item.descricao}
                                                     </Card.Title>
                                                     <Card.Text>
-                                                        {item.objetivo.descricao}
+                                                        {item.descricao}
                                                     </Card.Text>
                                                     <Button variant="primary" onClick={handleShow} >Formulário</Button>
                                                 </Card.Body>

@@ -55,3 +55,6 @@ footer ul{
   -webkit-text-fill-color: transparent;
   
 }
+footer p{
+    background-color: yellowgreen;
+}
