@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Carousel, Jumbotron, Button , Col, Row, Container, Card} from 'react-bootstrap';
+import { Carousel, Jumbotron, Button , Col, Row, Container, Card } from 'react-bootstrap';
 import Menu from '../../components/menu/'
 import Rodape from '../../components/rodape/'
 import './../home/index.css';
@@ -18,8 +17,8 @@ const Home = () => {
       alt="First slide"
     />
     <Carousel.Caption>
-      <h3>First slide label</h3>
-      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+      <h3>Bem Vindo a EduX</h3>
+      <p>Plataforma Educacional para melhorar seus estudos</p>
     </Carousel.Caption>
   </Carousel.Item>
   <Carousel.Item>

@@ -42,7 +42,7 @@ const Login = () => {
             //Informações do usuário decodificado no console
             console.log(usuario);
             
-            if(usuario.role === '3fa85f64-5717-4562-b3fc-2c963f66afa6'){
+            if(usuario.role === 'c1817683-18e1-4ec9-8a74-f2cdff6a2da1'){
                 history.push('/professor/crudObjetivo');
             } else {
                 history.push('/timeline')
