@@ -3,7 +3,7 @@
     padding: 0;
 }
 @media (min-width: 576px){
- .jumbotron {
+ .jumb {
     padding: 4rem 2rem;
     position: relative;
     top: -450px;
@@ -11,18 +11,32 @@
     margin: auto;
     box-shadow: 0px 0px 20px #909090;
 }   
+.row-yellow{
+    background-color: #F0E93D;
+    position: relative;
+    box-shadow: 0px 0px 20px #c5c5c5;
+    
 }
-.col {
+}
+.Col1 {
    position: relative;
    top: -130px;
    box-shadow: 0px 0px 20px #c2c2c2;
    margin: 25.9px;
    
 }
-.row{
-    background-color: #F0E93D;
+.Col2 {
     position: relative;
-    box-shadow: 0px 0px 20px #c5c5c5;
+    top: -130px;
+    box-shadow: 0px 0px 20px #c2c2c2;
+    margin: 25.9px;
     
-}
+ }
+ .Col3 {
+    position: relative;
+    top: -130px;
+    box-shadow: 0px 0px 20px #c2c2c2;
+    margin: 25.9px;
+    
+ }
 

@@ -31,7 +31,7 @@ import NaoEncontrado from './pages/naoencontrado/naoencontrado';
     <Route 
       {...rest}
       render= { props => 
-          localStorage.getItem('token-edux') !==null && jwt_decode(localStorage.getItem('token-edux')).role === '3fa85f64-5717-4562-b3fc-2c963f66afa6' ?
+          localStorage.getItem('token-edux') !==null && jwt_decode(localStorage.getItem('token-edux')).permissao === 'Professor' ?
           <Component {...props} /> :
           <Redirect to={{ pathname : '/login', state :{from : props.location}}} />
         }
@@ -42,16 +42,15 @@ import NaoEncontrado from './pages/naoencontrado/naoencontrado';
 const routing = (
   <Router>
     <Switch>
-      
       <Route exact path='/' component={Home} />
       <RotaPrivada path='/objetivos' component={Objetivos} />
       <Route path='/login' component={Login} />
       <Route path='/cadastrar' component={Cadastrar} />
-      <RotaPrivada path='/turma' component={Turma} />
+      <Route path='/turma' component={Turma} />
       <RotaPrivadaProfessor path='/professor/dashboard' component={Dashboard} />
       <RotaPrivada path='/timeline' component={TimeLine} />
+      <RotaPrivadaProfessor path='/professor/crudObjetivo' component={CrudObjetivo} />
       <RotaPrivada  component={SemPermissao} />
-      <RotaPrivada path='/professor/crudObjetivo' component={CrudObjetivo} />
       <Route component={NaoEncontrado} />
     </Switch>
   </Router>

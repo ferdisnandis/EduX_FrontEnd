@@ -1,66 +1,98 @@
 import React, { useState, useEffect } from 'react';
 import Menu from '../../components/menu'
 import Rodape from '../../components/rodape'
+// import jwt_decode from "jwt-decode";
 import { Container, Jumbotron, ListGroup, Card, Button, Col, Row, Form, } from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal'
-import ModalDialog from 'react-bootstrap/ModalDialog'
-import ModalHeader from 'react-bootstrap/ModalHeader'
-import ModalTitle from 'react-bootstrap/ModalTitle'
-import ModalBody from 'react-bootstrap/ModalBody'
-import ModalFooter from 'react-bootstrap/ModalFooter'
+import './index.css'
 import { url } from '../../utils/constant'
-import './../turmaespecifica'
 
 
 
 const Turma = () => {
-    const [id, setId] = useState(0);
-    const [descricao, setDescricao] = useState('');
-    const [categoria, setCategoria] = useState('');
-    const [idcategoria, setIdCategoria] = useState('0');
     const [urlImagem, setUrlImagem] = useState('');
-    const [objetivo, setObjetivo] = useState([])
-    // const [realizado, setRealizado] = useState([]);
-    // const [pendente, setPendente] = useState([])
+    // const [objetivo, setObjetivo] = useState([])
+    const [realizado, setRealizado] = useState([]);
+    const [pendente, setPendente] = useState([])
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [arquivo, setArquivo] = useState('');
+    const [idAlunoTurma, setIdAlunoTurma] = useState('');
 
 
     useEffect(() => {
+        getAlunoTurmaByEmail()
         // listarRealizado()
         // listarPendente()
-        listar()
+        // listar()
     }, [])
 
-    const listar = () => {
-        fetch(url + '/objetivoaluno')
+    // const listar = () => {
+    //     fetch(url + '/objetivoaluno')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             setObjetivo(data.data)
+    //             console.log(data.data);
+    //         })
+    //         .catch(err => console.error(err));
+    // }
+
+    
+    const getAlunoTurmaByEmail = () => { 
+        let email = localStorage.getItem('email')
+        console.log(email);
+        fetch(url + `/alunoturma/GetByEmail/${email}`)
+        .then(response => response.json())
+        .then(data => {
+            listarPendente(data.id)
+            listarRealizado(data.id)
+        })
+    }
+
+    const listarRealizado = (id) => {
+        fetch(url + '/objetivoaluno/ListarObjetivosPorAluno/'+ id + '/false')
             .then(response => response.json())
             .then(data => {
-                setObjetivo(data.data)
-                console.log(data.data);
+                setRealizado(data)
+                console.log(data);
+            })
+            .catch(err => console.error(err));
+    }
+    const listarPendente = (id) => {
+        fetch(url + '/objetivoaluno/ListarObjetivosPorAluno/' + id + '/true')
+            .then(response => response.json())
+            .then(data => {
+                setPendente(data)
+                console.log(data);
             })
             .catch(err => console.error(err));
     }
 
-    // const listarRealizado = () => {
-    //     fetch(url + '/objetivoaluno/ListarObjetivosPorAluno/00C077ED-0EB2-4B16-A928-4EAEAB05BBF1/false')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setRealizado(data)
-    //             console.log(data);
-    //         })
-    //         .catch(err => console.error(err));
-    // }
-    // const listarPendente = () => {
-    //     fetch(url + '/objetivoaluno/ListarObjetivosPorAluno/00C077ED-0EB2-4B16-A928-4EAEAB05BBF1/true')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setPendente(data)
-    //             console.log(data);
-    //         })
-    //         .catch(err => console.error(err));
-    // }
+    const keepFile = (event) => {
+        setArquivo(event.target.files[0]);
+
+    }
+
+    const uploadFile = (event, id) => {
+        event.preventDefault()
+
+        let formdata = new FormData();
+
+        formdata.append('objetivoAluno.Imagem', arquivo);
+        console.log(event.id);
+        fetch(url + '/objetivoAluno/' + id, {
+            method: 'PUT',
+            body: formdata
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                // setUrlImagem(data.url)
+            })
+            .catch(err => console.log(err))
+        window.location.reload();
+    }
 
     return (
         <div>
@@ -86,17 +118,15 @@ const Turma = () => {
                                     Objetivos Completos
                                 </h3>
                                 {
-                                    objetivo.map((item, index) => {
+                                    realizado.map((item, index) => {
                                         return (
-                                            <Card style={{ height: '140px' }}>
+                                            <Card>
                                                 <Card.Header>Objetivos</Card.Header>
                                                 <Card.Body style={{ backgroundColor: '#00d65f' }}>
-                                                    <Card.Title>
-                                                        <p style={{ fontSize: '20px', marginTop: '-10px' }}>Sprint 2</p>
-                                                    </Card.Title>
                                                     <Card.Text>
-                                                        <p>{item.descricao}</p>
+                                                        <p style={{ fontStyle: 'italic', fontSize: '20px' }}>{item.objetivo.descricao}</p>
                                                     </Card.Text>
+                                                    <img style={{ height: '70px', width: '70px' }} src={item.urlImagem} alt="Upload" />
                                                 </Card.Body>
                                             </Card>
                                         )
@@ -118,19 +148,52 @@ const Turma = () => {
                                     </ListGroup>
                                 </div>
 
-                                <div className='objetivosocultos'>
+                                <div className='Lateral'>
                                     <h3>
-                                        Objetivos Ocultos
-                                </h3>
-                                    <Card>
-                                        <Card.Header>Objetivos</Card.Header>
-                                        <Card.Body>
-                                            <Card.Title>Special title treatment</Card.Title>
-                                            <Card.Text>
-                                                With supporting text below as a natural lead-in to additional content.
-                                    </Card.Text>
-                                        </Card.Body>
-                                    </Card>
+                                        Objetivos Pendentes
+                                    </h3>
+                                    {
+                                        pendente.map((item, event) => {
+                                            return (
+                                                <Card>
+                                                    <Card.Header>Objetivos</Card.Header>
+                                                    <Card.Body style={{ backgroundColor: '#f9e800' }}>
+                                                        <Card.Title>
+                                                            {item.objetivo.categoria.tipo}
+                                                        </Card.Title>
+                                                        <Card.Text>
+                                                            {item.objetivo.descricao}
+                                                        </Card.Text>
+                                                        <Button variant="primary" onClick={handleShow} >Formulário</Button>
+                                                    </Card.Body>
+                                                    <Modal
+                                                        show={show}
+                                                        onHide={handleClose}
+                                                        size="lg"
+                                                        aria-labelledby="contained-modal-title-vcenter"
+                                                        centered
+                                                    >
+                                                        <Modal.Header closeButton>
+                                                            <Modal.Title>Modal heading</Modal.Title>
+                                                        </Modal.Header>
+                                                        <Modal.Body>
+                                                            <Form>
+                                                                <Form.Group>
+                                                                    <Form.File id="exampleFormControlFile1" label="Imagem da Atividade" onChange={event => { keepFile(event) }} />
+                                                                    {urlImagem && <img src={urlImagem} style={{ width: '120px' }} />}
+                                                                </Form.Group>
+                                                            </Form>
+                                                        </Modal.Body>
+                                                        <Modal.Footer>
+                                                            <Button variant="secondary" onClick={handleClose}>Close</Button>
+                                                            {/* <Button variant="primary" value={item.id} onClick={event => editar(event)}>Enviar</Button> */}
+                                                            <Button type='submit' onClick={event => { uploadFile(event, item.id) }}>Enviar</Button>
+                                                        </Modal.Footer>
+                                                    </Modal>
+                                                </Card>
+                                            )
+                                        })
+                                    }
                                 </div>
                             </div>
                         </Col>
@@ -138,55 +201,19 @@ const Turma = () => {
 
 
                         <Col>
-                            <div className='Lateral'>
-                                <h1>
-                                    Objetivos Pendentes
-                                </h1>
-                                {
-                                    objetivo.map((item, index) => {
-                                        return (
-                                            <Card>
-                                                <Card.Header>Objetivos</Card.Header>
-                                                <Card.Body style={{ backgroundColor: '#f9e800' }}>
-                                                    <Card.Title>
-                                                        {item.descricao}
-                                                    </Card.Title>
-                                                    <Card.Text>
-                                                        {item.descricao}
-                                                    </Card.Text>
-                                                    <Button variant="primary" onClick={handleShow} >Formulário</Button>
-                                                </Card.Body>
-                                                <Modal
-                                                    show={show}
-                                                    onHide={handleClose}
-                                                    size="lg"
-                                                    aria-labelledby="contained-modal-title-vcenter"
-                                                    centered
-                                                >
-                                                    <Modal.Header closeButton>
-                                                        <Modal.Title>Modal heading</Modal.Title>
-                                                    </Modal.Header>
-                                                    <Modal.Body>
-                                                        <input type="hidden" id={'idObjetivoAluno'} value={item.id} />
-                                                        <Form>
-                                                            <Form.Group>
-                                                                <Form.File id="exampleFormControlFile1" label="Example file input" />
-                                                            </Form.Group>
-                                                        </Form>
-                                                    </Modal.Body>
-                                                    <Modal.Footer>
-                                                        <Button variant="secondary" onClick={handleClose}>
-                                                            Close
-                                                        </Button>
-                                                        <Button variant="primary" onClick={handleClose}>
-                                                            Save Changes
-                                                        </Button>
-                                                    </Modal.Footer>
-                                                </Modal>
-                                            </Card>
-                                        )
-                                    })
-                                }
+                            <div className='objetivosocultos'>
+                                <h3>
+                                    Objetivos Ocultos
+                                </h3>
+                                <Card>
+                                    <Card.Header>Objetivos</Card.Header>
+                                    <Card.Body>
+                                        <Card.Title>Special title treatment</Card.Title>
+                                        <Card.Text>
+                                            With supporting text below as a natural lead-in to additional content.
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
                             </div>
                         </Col>
                     </Row>

@@ -16,7 +16,7 @@ const CrudObjetivos = () => {
     }, []);
 
     const Listar = () => {
-        fetch(url + '/professor/crudObjetivo')
+        fetch(url + '/objetivo')
             .then(response => response.json())
             .then(data => {
                 setObjetivos(data.data);
@@ -29,7 +29,7 @@ const CrudObjetivos = () => {
     const Excluir = (event) => {
         event.preventDefault();
 
-        fetch(`${url}/professor/crudObjetivos/${event.target.value}`,{
+        fetch(`${url}/objetivo${event.target.value}`,{
             method : 'DELETE',
             headers : {
                 'authorization' : 'Baerer ' + localStorage.getItem('token-edux')
@@ -47,7 +47,7 @@ const CrudObjetivos = () => {
     const Editar = (event) => {
         event.preventDefault();
 
-        fetch(`${url}/professor/crudObjetivo/${event.target.value}`, {
+        fetch(`${url}/objetivo${event.target.value}`, {
             method : 'GET'
         })
         .then(response => response.json())

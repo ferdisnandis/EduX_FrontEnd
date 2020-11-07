@@ -1,4 +1,4 @@
-html,
+html
 .Width{
     max-width: 100%;
 }
@@ -9,10 +9,10 @@ html,
     /* background-color: black; */
 }
 .esquerda{
-    padding-bottom: 3%;
+    padding-bottom: 3%
 }
 .objetivosocultos{
-    padding-top: 25%;
+    padding-top: 11%;
 }
 .Raking{
     padding-top: 10%;
@@ -21,7 +21,7 @@ html,
     display: inline;
     margin: auto;
 }
-.Lateral h1{
-    padding-bottom: 8%;
+.Lateral h3{
+    padding-top: 25%;
 }
 
