@@ -21,7 +21,7 @@ const CrudObjetivos = () => {
             .then(data => {
                 setObjetivos(data.data);
                 console.log(data.data);
-               // limparCampos();
+                limparCampos();
         })
         .catch(err => console.error(err));
     }
@@ -178,4 +178,3 @@ const CrudObjetivos = () => {
 }
 
 export default CrudObjetivos;
-

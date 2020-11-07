@@ -24,7 +24,7 @@ const Menu = () => {
           <div className="cadastrar"><Nav.Link href="/cadastrar">Cadastrar</Nav.Link></div>
         </Nav>
         )
-      } else if ( jwt_decode(token).role === '3fa85f64-5717-4562-b3fc-2c963f66afa6'){
+      } else if ( jwt_decode(token).permissao === 'Professor'){
         return(
         <Nav>
          <Nav.Link href="/professor/crudObjetivo">Objetivo</Nav.Link>

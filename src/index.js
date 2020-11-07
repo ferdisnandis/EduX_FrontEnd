@@ -15,6 +15,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SemPermissao from './pages/sempermissao'
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom"
 import NaoEncontrado from './pages/naoencontrado/naoencontrado';
+import TimeLine1 from './pages/feed';
 
   const RotaPrivada = ({component : Component, ...rest}) => (
     <Route 
@@ -31,7 +32,12 @@ import NaoEncontrado from './pages/naoencontrado/naoencontrado';
     <Route 
       {...rest}
       render= { props => 
+<<<<<<< HEAD
           localStorage.getItem('token-edux') !==null && jwt_decode(localStorage.getItem('token-edux')).permissao === 'Professor' ?
+=======
+          localStorage.getItem('token-edux') !==null && jwt_decode(localStorage.getItem('token-edux')).role === 'c1817683-18e1-4ec9-8a74-f2cdff6a2da1' ?
+        
+>>>>>>> 613a7c9c4e62a8bf650b020e2d963ae85e943bea
           <Component {...props} /> :
           <Redirect to={{ pathname : '/login', state :{from : props.location}}} />
         }
