@@ -40,12 +40,7 @@ const Login = () => {
 
             //Informações do usuário decodificado no console
             console.log(usuario);
-<<<<<<< HEAD
             if(usuario.permissao === 'Professor'){
-=======
-            
-            if(usuario.role === 'c1817683-18e1-4ec9-8a74-f2cdff6a2da1'){
->>>>>>> 613a7c9c4e62a8bf650b020e2d963ae85e943bea
                 history.push('/professor/crudObjetivo');
             } else {
                 history.push('/timeline')
