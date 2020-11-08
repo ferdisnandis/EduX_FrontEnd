@@ -1,9 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
 import { Carousel, Jumbotron, Button, Col, Row, Container, Card } from 'react-bootstrap';
-=======
-import { Carousel, Jumbotron, Button , Col, Row, Container, Card } from 'react-bootstrap';
->>>>>>> 613a7c9c4e62a8bf650b020e2d963ae85e943bea
 import Menu from '../../components/menu/'
 import Rodape from '../../components/rodape/'
 import './../home/index.css';
@@ -12,7 +8,6 @@ import './../home/index.css';
 const Home = () => {
   return (
     <div>
-<<<<<<< HEAD
       <Menu />
       <Carousel >
         <Carousel.Item style={{ height: '700px' }}>
@@ -35,34 +30,6 @@ const Home = () => {
             src="https://image.freepik.com/free-vector/time-management-work-multitasking-managing-time-security-scheduling_4968-683.jpg"
             alt="four slide"
           />
-=======
-        <Menu />
-  <Carousel >
-  <Carousel.Item style={{height:'700px'}}>
-    <img
-      className="d-block w-100"
-      src="https://image.freepik.com/free-vector/vector-illustration-people-learning-repair-machines-trade-school-vocational-university-college-institution-vocational-education_4968-650.jpg"
-      alt="First slide"
-    />
-    <Carousel.Caption>
-      <h3>Bem Vindo a EduX</h3>
-      <p>Plataforma Educacional para melhorar seus estudos</p>
-    </Carousel.Caption>
-  </Carousel.Item>
-  <Carousel.Item style={{height:'700px'}}>
-    <img
-      className="d-block w-100"
-      src="https://image.freepik.com/free-vector/coding-create-artificial-intelligence-program-looking-bug-artificial-brain-robot-smart-technology-artificial-intelligence-internet-things_4968-705.jpg"
-      alt="Third slide"
-    />
-  </Carousel.Item>
-  <Carousel.Item style={{height:'700px'}}>
-    <img
-      className="d-block w-100"
-      src="https://image.freepik.com/free-vector/time-management-work-multitasking-managing-time-security-scheduling_4968-683.jpg"
-      alt="four slide"
-    />
->>>>>>> 613a7c9c4e62a8bf650b020e2d963ae85e943bea
 
 
         </Carousel.Item>

@@ -96,7 +96,7 @@ const CrudObjetivos = () => {
         }
 
         let method = (id === 0 ? 'POST' : 'PUT');
-        let urlRequest = (id === 0 ? `${url}/professor/crudObjetivo` : `${url}/professor/crudObjetivo/${id}`);
+        let urlRequest = (id === 0 ? `${url}/objetivo` : `${url}/objetivo${id}`);
 
         fetch(urlRequest, {
             method : method,
@@ -145,8 +145,6 @@ const CrudObjetivos = () => {
                                 </Form.Group>
 
                                 <Form.Group>
-                                    <Form.File id="fileObjetivo" label="Imagem do Objetivo" onChange={event => {uploadFile(event)}} />
-                                    {UrlImagem && <img src={UrlImagem} style={{ width : '120px'}} />}
                                     <Button type="submit">Salvar</Button>
                                 </Form.Group>
                             </Form>
@@ -155,7 +153,6 @@ const CrudObjetivos = () => {
                     <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>Imagem</th>
                             <th>Descricao</th>
                             <th>Categoria</th>
                             <th>Ações</th>
@@ -167,7 +164,6 @@ const CrudObjetivos = () => {
                             objetivos.map((item, index) => {
                                 return (
                                 <tr key={index}>
-                                    <td><img src={item.UrlImagem} style={{ width : '120px' , height : '120px'}}></img></td>
                                     <td>{item.descricao}</td>
                                     <td>{item.categoria}</td>
                                     <td><Button variant="warning" value={item.id} onClick={event => Editar(event)}>Editar</Button>
