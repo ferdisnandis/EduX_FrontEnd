@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
 import { url } from '../../utils/constant'
 import Menu from '../../components/menu'
 import Rodape from '../../components/rodape'
@@ -11,13 +13,12 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    const login = {
-        Email : email,
-        Senha : senha
-    }
     const Logar = (event) => {
         event.preventDefault();
-
+        let login = {
+            Email : email,
+            Senha : senha
+        }
         fetch( url + '/login', {
             method : 'POST',
             body : JSON.stringify(login), 
@@ -34,13 +35,12 @@ const Login = () => {
         })
         .then(data => {
             localStorage.setItem('token-edux', data.token);
-
+            localStorage.setItem('email', jwt_decode(data.token).email);
             let usuario = jwt_decode(data.token);
 
             //Informações do usuário decodificado no console
             console.log(usuario);
-            
-            if(usuario.role === 'c1817683-18e1-4ec9-8a74-f2cdff6a2da1'){
+            if(usuario.permissao === 'Professor'){
                 history.push('/professor/crudObjetivo');
             } else {
                 history.push('/timeline')

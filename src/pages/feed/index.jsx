@@ -1,1 +1,0 @@
-//Tentei fazer um negócio de stream, que n deu certo :(

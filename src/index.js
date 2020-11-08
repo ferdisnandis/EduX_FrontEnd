@@ -9,13 +9,14 @@ import Login from './pages/login';
 import Objetivos from './pages/objetivos_teste';
 import CrudObjetivo from './pages/professor/crudObjetivo'
 import Home from './pages/home'
+import PerfilAluno from './pages/perfil'
+import PerfilProfessor from './pages/professor/perfil'
 import Cadastrar from './pages/cadastrar'
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SemPermissao from './pages/sempermissao'
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom"
 import NaoEncontrado from './pages/naoencontrado/naoencontrado';
-import TimeLine1 from './pages/feed';
 
   const RotaPrivada = ({component : Component, ...rest}) => (
     <Route 
@@ -32,8 +33,7 @@ import TimeLine1 from './pages/feed';
     <Route 
       {...rest}
       render= { props => 
-          localStorage.getItem('token-edux') !==null && jwt_decode(localStorage.getItem('token-edux')).role === 'c1817683-18e1-4ec9-8a74-f2cdff6a2da1' ?
-        
+          localStorage.getItem('token-edux') !==null && jwt_decode(localStorage.getItem('token-edux')).permissao === 'Professor' ?
           <Component {...props} /> :
           <Redirect to={{ pathname : '/login', state :{from : props.location}}} />
         }
@@ -46,13 +46,15 @@ const routing = (
     <Switch>
       <Route exact path='/' component={Home} />
       <RotaPrivada path='/objetivos' component={Objetivos} />
+      <RotaPrivada path='/perfil' component={PerfilAluno} />
+      <RotaPrivadaProfessor path='/professor/perfil' component={PerfilProfessor} />
       <Route path='/login' component={Login} />
       <Route path='/cadastrar' component={Cadastrar} />
-      <RotaPrivada path='/turma' component={Turma} />
+      <Route path='/turma' component={Turma} />
       <RotaPrivadaProfessor path='/professor/dashboard' component={Dashboard} />
       <RotaPrivada path='/timeline' component={TimeLine} />
+      <RotaPrivadaProfessor path='/professor/crudObjetivo' component={CrudObjetivo} />
       <RotaPrivada  component={SemPermissao} />
-      <RotaPrivada path='/professor/crudObjetivo' component={CrudObjetivo} />
       <Route component={NaoEncontrado} />
     </Switch>
   </Router>
