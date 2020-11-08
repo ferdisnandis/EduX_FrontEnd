@@ -42,7 +42,7 @@ const Turma = () => {
     const getAlunoTurmaByEmail = () => { 
         let email = localStorage.getItem('email')
         console.log(email);
-        fetch(`${url}` + `/alunoturma/GetByEmail/${email}`)
+        fetch(url + `/alunoturma/GetByEmail/${email}`)
         .then(response => response.json())
         .then(data => {
             listarPendente(data.id)
