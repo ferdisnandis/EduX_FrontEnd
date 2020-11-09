@@ -34,9 +34,10 @@ const Login = () => {
             alert('Dados inválidos')
         })
         .then(data => {
-            localStorage.setItem('token-edux', data.token);
-            localStorage.setItem('email', jwt_decode(data.token).email);
             let usuario = jwt_decode(data.token);
+            localStorage.setItem('token-edux', data.token);
+            localStorage.setItem('email', usuario.email);
+            localStorage.setItem('idUsuario', usuario.unique_name);
 
             //Informações do usuário decodificado no console
             console.log(usuario);

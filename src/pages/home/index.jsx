@@ -30,6 +30,11 @@ const Home = () => {
             src="https://image.freepik.com/free-vector/time-management-work-multitasking-managing-time-security-scheduling_4968-683.jpg"
             alt="four slide"
           />
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 6b846d5f559d157a2a0ff2ff28b0ef5df7d9c22e
         </Carousel.Item>
       </Carousel>
       <Jumbotron className="jumb">

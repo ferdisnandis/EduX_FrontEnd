@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Menu from '../../components/menu'
 import Rodape from '../../components/rodape'
-// import jwt_decode from "jwt-decode";
+import './index.css'
 import { Container, Jumbotron, ListGroup, Card, Button, Col, Row, Form, } from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal'
 import './Index.css'
@@ -11,47 +11,42 @@ import { url } from '../../utils/constant'
 
 const Turma = () => {
     const [urlImagem, setUrlImagem] = useState('');
-    // const [objetivo, setObjetivo] = useState([])
     const [realizado, setRealizado] = useState([]);
     const [pendente, setPendente] = useState([])
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [arquivo, setArquivo] = useState('');
-    const [idAlunoTurma, setIdAlunoTurma] = useState('');
-
+    const [ranking, setRanking] = useState([])
 
     useEffect(() => {
         getAlunoTurmaByEmail()
-        // listarRealizado()
-        // listarPendente()
-        // listar()
+        getRanking()
     }, [])
 
-    // const listar = () => {
-    //     fetch(url + '/objetivoaluno')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setObjetivo(data.data)
-    //             console.log(data.data);
-    //         })
-    //         .catch(err => console.error(err));
-    // }
+    const getRanking = () => {
+        fetch(url + '/objetivoaluno/ranking')
+            .then(response => response.json())
+            .then(data => {
+                setRanking(data)
+                console.log(data);
+            })
+            .catch(err => console.error(err));
+    }
 
-    
-    const getAlunoTurmaByEmail = () => { 
+    const getAlunoTurmaByEmail = () => {
         let email = localStorage.getItem('email')
         console.log(email);
         fetch(url + `/alunoturma/GetByEmail/${email}`)
-        .then(response => response.json())
-        .then(data => {
-            listarPendente(data.id)
-            listarRealizado(data.id)
-        })
+            .then(response => response.json())
+            .then(data => {
+                listarPendente(data.id)
+                listarRealizado(data.id)
+            })
     }
 
     const listarRealizado = (id) => {
-        fetch(url + '/objetivoaluno/ListarObjetivosPorAluno/'+ id + '/false')
+        fetch(url + '/objetivoaluno/ListarObjetivosPorAluno/' + id + '/false')
             .then(response => response.json())
             .then(data => {
                 setRealizado(data)
@@ -139,14 +134,24 @@ const Turma = () => {
                         <Col sm='auto' xs={6}>
                             <div>
                                 <div className='Raking'>
-                                    <ListGroup>
-                                        <h2>Ranking Dos Alunos</h2>
-                                        <ListGroup.Item action variant="warning">Robert John Downey, Jr.</ListGroup.Item>
-                                        <ListGroup.Item action variant="secondary">Scarlett Ingrid Johansson</ListGroup.Item>
-                                        <ListGroup.Item action variant="danger">Benedict Timothy Carlton Cumberbatch</ListGroup.Item>
-                                    </ListGroup>
+                                    <h2>Ranking Dos Alunos</h2>
+                                    {
+                                        ranking.map((item) => {
+                                            return (
+                                                <div>
+                                                    <ListGroup>
+                                                        <ListGroup.Item action variant="success">
+                                                            <div className='display'>
+                                                                <p className='nome'>{item.nome}</p>  
+                                                                <p className='media'> Média: {item.media.toFixed(2)}</p>
+                                                            </div>
+                                                        </ListGroup.Item>
+                                                    </ListGroup>
+                                                </div>
+                                            )
+                                        })
+                                    }
                                 </div>
-
                                 <div className='Lateral'>
                                     <h3>
                                         Objetivos Pendentes
@@ -173,7 +178,7 @@ const Turma = () => {
                                                         centered
                                                     >
                                                         <Modal.Header closeButton>
-                                                            <Modal.Title>Modal heading</Modal.Title>
+                                                            <Modal.Title>Entrega da Atividade</Modal.Title>
                                                         </Modal.Header>
                                                         <Modal.Body>
                                                             <Form>
@@ -204,12 +209,12 @@ const Turma = () => {
                                 <h3>
                                     Objetivos Ocultos
                                 </h3>
-                                <Card>
+                                <Card style={{ backgroundColor: 'gray' }}>
                                     <Card.Header>Objetivos</Card.Header>
                                     <Card.Body>
-                                        <Card.Title>Special title treatment</Card.Title>
+                                        <Card.Title>React-App</Card.Title>
                                         <Card.Text>
-                                            With supporting text below as a natural lead-in to additional content.
+                                            Percebeu erros minunciosamente
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
