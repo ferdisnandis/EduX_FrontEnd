@@ -16,11 +16,22 @@ const Turma = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [arquivo, setArquivo] = useState('');
-
+    const [ranking, setRanking] = useState([])
 
     useEffect(() => {
         getAlunoTurmaByEmail()
+        getRanking()
     }, [])
+
+    const getRanking = () => {
+        fetch(url + '/objetivoaluno/ranking')
+            .then(response => response.json())
+            .then(data => {
+                setRanking(data)
+                console.log(data);
+            })
+            .catch(err => console.error(err));
+    }
 
     const getAlunoTurmaByEmail = () => {
         let email = localStorage.getItem('email')
@@ -122,14 +133,24 @@ const Turma = () => {
                         <Col sm='auto' xs={6}>
                             <div>
                                 <div className='Raking'>
-                                    <ListGroup>
-                                        <h2>Ranking Dos Alunos</h2>
-                                        <ListGroup.Item action variant="warning">Robert John Downey, Jr.</ListGroup.Item>
-                                        <ListGroup.Item action variant="secondary">Scarlett Ingrid Johansson</ListGroup.Item>
-                                        <ListGroup.Item action variant="danger">Benedict Timothy Carlton Cumberbatch</ListGroup.Item>
-                                    </ListGroup>
+                                    <h2>Ranking Dos Alunos</h2>
+                                    {
+                                        ranking.map((item) => {
+                                            return (
+                                                <div>
+                                                    <ListGroup>
+                                                        <ListGroup.Item action variant="success">
+                                                            <div className='display'>
+                                                                <p className='nome'>{item.nome}</p>  
+                                                                <p className='media'> Média: {item.media.toFixed(2)}</p>
+                                                            </div>
+                                                        </ListGroup.Item>
+                                                    </ListGroup>
+                                                </div>
+                                            )
+                                        })
+                                    }
                                 </div>
-
                                 <div className='Lateral'>
                                     <h3>
                                         Objetivos Pendentes
@@ -187,7 +208,7 @@ const Turma = () => {
                                 <h3>
                                     Objetivos Ocultos
                                 </h3>
-                                <Card style={{ backgroundColor : 'gray' }}>
+                                <Card style={{ backgroundColor: 'gray' }}>
                                     <Card.Header>Objetivos</Card.Header>
                                     <Card.Body>
                                         <Card.Title>React-App</Card.Title>

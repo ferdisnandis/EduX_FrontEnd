@@ -14,9 +14,17 @@ html
 .objetivosocultos{
     padding-top: 11%;
 }
-.Raking{
+.Raking h2{
     padding-top: 10%;
 }
+.display{
+    display: flex;
+    height: 23px;
+}
+.media{
+    margin-left: 74%;
+}
+
 .Container{
     display: inline;
     margin: auto;
