@@ -27,7 +27,8 @@ const Menu = () => {
       } else if ( jwt_decode(token).permissao === 'Professor'){
         return(
         <Nav>
-         <Nav.Link href="/professor/crudObjetivo">Objetivo</Nav.Link>
+        <Nav.Link href="/professor/avaliacao">Avaliação</Nav.Link>
+         <Nav.Link href="/objetivo">Objetivo</Nav.Link>
          <Nav.Link href="/timeline">Timeline</Nav.Link>
           <NavDropdown title={jwt_decode(token).nameid} id="basic-nav-dropdown">
         <NavDropdown.Item href="/perfil">Perfil</NavDropdown.Item>
@@ -40,7 +41,7 @@ const Menu = () => {
         return(
         <Nav>
           <Nav.Link href="/timeline">TimeLine</Nav.Link>
-          <Nav.Link href="/turma">Turma</Nav.Link>
+          <Nav.Link href="/turma">Objetivo</Nav.Link>
           <NavDropdown title={jwt_decode(token).nameid} id="basic-nav-dropdown">
         <NavDropdown.Item href="/perfil">Perfil</NavDropdown.Item>
         <NavDropdown.Divider />

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import jwt_decode from 'jwt-decode'
-import Dashboard from './pages/professor/dashboard'
+import Avaliacao from './pages/professor/dashboard'
 import TimeLine from './pages/timeline'
 import ReactDOM from 'react-dom';
 import './index.css';
 import Turma from './pages/turmaespecifica';
 import Login from './pages/login';
-import Objetivos from './pages/objetivos_teste';
 import CrudObjetivo from './pages/professor/crudObjetivo'
 import Home from './pages/home'
 import PerfilAluno from './pages/perfil'
@@ -45,15 +44,14 @@ const routing = (
   <Router>
     <Switch>
       <Route exact path='/' component={Home} />
-      <RotaPrivada path='/objetivos' component={Objetivos} />
       <RotaPrivada path='/perfil' component={PerfilAluno} />
       <RotaPrivadaProfessor path='/professor/perfil' component={PerfilProfessor} />
       <Route path='/login' component={Login} />
       <Route path='/cadastrar' component={Cadastrar} />
       <Route path='/turma' component={Turma} />
-      <RotaPrivadaProfessor path='/professor/dashboard' component={Dashboard} />
+      <RotaPrivadaProfessor path='/professor/avaliacao' component={Avaliacao} />
       <RotaPrivada path='/timeline' component={TimeLine} />
-      <RotaPrivadaProfessor path='/professor/crudObjetivo' component={CrudObjetivo} />
+      <RotaPrivadaProfessor path='/Objetivo' component={CrudObjetivo} />
       <RotaPrivada  component={SemPermissao} />
       <Route component={NaoEncontrado} />
     </Switch>

@@ -4,7 +4,7 @@ import Rodape from '../../components/rodape'
 // import jwt_decode from "jwt-decode";
 import { Container, Jumbotron, ListGroup, Card, Button, Col, Row, Form, } from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal'
-import './index.css'
+import './Index.css'
 import { url } from '../../utils/constant'
 
 

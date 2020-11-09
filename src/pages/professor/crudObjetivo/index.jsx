@@ -1,5 +1,5 @@
   
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {Card, Form, Button, Container, Table } from 'react-bootstrap';
 import Menu from '../../../components/menu'
 import Rodape from '../../../components/rodape'
@@ -9,8 +9,6 @@ const CrudObjetivos = () => {
     const [id, setId ] = useState(0);
     const [descricao, setDescricao] = useState('');
     const [categoria, setCategoria] = useState('');
-    const [imagem, setImagem] = useState('');
-    const [UrlImagem, setUrlImagem] = useState('');
     const [objetivos, setObjetivos] = useState([]);
 
     useEffect(() => {
@@ -18,11 +16,11 @@ const CrudObjetivos = () => {
     }, []);
 
     const Listar = () => {
-        fetch(url + '/objetivo')
+        fetch(url + 'Objetivo')
             .then(response => response.json())
             .then(data => {
+               console.log(data.data)
                 setObjetivos(data.data);
-                console.log(data.data);
                 limparCampos();
         })
         .catch(err => console.error(err));
@@ -30,8 +28,8 @@ const CrudObjetivos = () => {
 
     const Excluir = (event) => {
         event.preventDefault();
-
-        fetch(`${url}/objetivo/${event.target.value}`,{
+        console.log("remover" + event.target.value)
+        fetch(`${url}objetivo/${event.target.value}`, {
             method : 'DELETE',
             headers : {
                 'authorization' : 'Baerer ' + localStorage.getItem('token-edux')
@@ -49,42 +47,18 @@ const CrudObjetivos = () => {
     const Editar = (event) => {
         event.preventDefault();
 
-        fetch(`${url}/objetivo/${event.target.value}`, {
+        fetch(`${url}objetivo/${event.target.value}`, {
             method : 'GET'
         })
         .then(response => response.json())
         .then(dados => {
             setId(dados.id);
             setDescricao(dados.descricao);
-            setImagem(dados.imagem)
-            setUrlImagem(dados.urlImagem);
             setCategoria(dados.categoria);
         })
     }
 
-    const keepFile = (event) => {
-        setImagem(event.target.files[0]);
-    }
 
-    const uploadFile = (event) => {
-        event.preventDefault();
-
-        let formdata = new FormData();
-
-        formdata.append('objetivo.Imagem', event.target.files[0]);
-
-        fetch(`${url}'/objetivo/${event.target.value}`,{
-            method : 'POST',
-            body : formdata
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-            //setUrlImagem(data.url);
-        })
-        .catch(err => console.log(err))
-        window.location.reload();
-    }
 
     const Salvar = (event) => {
         event.preventDefault();
@@ -92,18 +66,16 @@ const CrudObjetivos = () => {
         const obj = {
             categoria : categoria,
             descricao : descricao,
-            imagem : imagem,
         }
 
-        let method = (id === 0 ? 'POST' : 'PUT');
-        let urlRequest = (id === 0 ? `${url}/professor/crudObjetivo` : `${url}/professor/crudObjetivo/${id}`);
+        let method = (id === "" ? 'POST' : 'PUT');
+        let urlRequest = (id === "" ? `${url}objetivo` : `${url}objetivo/${id}`);
 
         fetch(urlRequest, {
             method : method,
             body : JSON.stringify(obj),
             headers : {
-                'content-type' : 'application/json',
-                'authorization' : 'Bearer ' + localStorage.getItem('token-edux')
+                'content-type' : 'application/json'
             }
         })
         .then(response => response.json())
@@ -118,7 +90,6 @@ const CrudObjetivos = () => {
     const limparCampos = () => {
         setId(0);
         setDescricao('');
-        setUrlImagem('');
     }
 
 
@@ -138,15 +109,11 @@ const CrudObjetivos = () => {
 
                                 <Form.Group controlId="exampleForm.ControlSelect1">
                                 <Form.Label>Categoria</Form.Label>
-                                    <Form.Control as="select">
-                                        <option>Normal</option>
-                                        <option>Oculto</option>
-                                   </Form.Control>
+                                    <Form.Control type="text" value={categoria} onChange={event => setCategoria(event.target.value)} placeholder="Categoria Oculta ou Normal">
+                                    </Form.Control>
                                 </Form.Group>
 
                                 <Form.Group>
-                                    <Form.File id="fileObjetivo" label="Imagem do Objetivo" onChange={event => {uploadFile(event)}} />
-                                    {UrlImagem && <img src={UrlImagem} style={{ width : '120px'}} />}
                                     <Button type="submit">Salvar</Button>
                                 </Form.Group>
                             </Form>
@@ -155,7 +122,6 @@ const CrudObjetivos = () => {
                     <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>Imagem</th>
                             <th>Descricao</th>
                             <th>Categoria</th>
                             <th>Ações</th>
@@ -167,7 +133,6 @@ const CrudObjetivos = () => {
                             objetivos.map((item, index) => {
                                 return (
                                 <tr key={index}>
-                                    <td><img src={item.UrlImagem} style={{ width : '120px' , height : '120px'}}></img></td>
                                     <td>{item.descricao}</td>
                                     <td>{item.categoria}</td>
                                     <td><Button variant="warning" value={item.id} onClick={event => Editar(event)}>Editar</Button>
