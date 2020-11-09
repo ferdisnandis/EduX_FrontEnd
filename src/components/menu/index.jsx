@@ -37,7 +37,7 @@ const Menu = () => {
         </NavDropdown>
       </Nav>
         )
-      } else {
+      } else if ( jwt_decode(token).permissao === 'Aluno'){
         return(
         <Nav>
           <Nav.Link href="/timeline">TimeLine</Nav.Link>
@@ -49,9 +49,22 @@ const Menu = () => {
       </NavDropdown>
         </Nav>
         )
+      } else if ( jwt_decode(token).permissao === 'Admin'){
+        return(
+          <Nav>
+          <Nav.Link href="/crudInstituicao">Instituição</Nav.Link>
+          <Nav.Link href="/crudCursos">Cursos</Nav.Link>
+          <NavDropdown title={jwt_decode(token).nameid} id="basic-nav-dropdown">
+          <NavDropdown.Item href="/perfil">Perfil</NavDropdown.Item>
+        <NavDropdown.Divider />
+        <NavDropdown.Item onClick={event => Sair(event)}>Sair</NavDropdown.Item>
+        </NavDropdown>
+          </Nav>
+        )
       }
-  }
-   return(
+    }
+
+      return(
      <Navbar bg="light" expand="lg">
    <Navbar.Brand scr={logo} href="/">EduX</Navbar.Brand>
    <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -63,5 +76,6 @@ const Menu = () => {
   </Navbar.Collapse>
 </Navbar>
     )
-}
+   }
+
 export default Menu;

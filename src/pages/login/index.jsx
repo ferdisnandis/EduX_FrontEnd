@@ -19,7 +19,7 @@ const Login = () => {
             Email : email,
             Senha : senha
         }
-        fetch( url + '/login', {
+        fetch( url + 'login', {
             method : 'POST',
             body : JSON.stringify(login), 
             headers : {
@@ -42,7 +42,7 @@ const Login = () => {
             //Informações do usuário decodificado no console
             console.log(usuario);
             if(usuario.permissao === 'Professor'){
-                history.push('/professor/crudObjetivo');
+                history.push('/objetivo');
             } else {
                 history.push('/timeline')
             }

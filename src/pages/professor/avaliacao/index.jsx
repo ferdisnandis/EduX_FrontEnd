@@ -17,7 +17,7 @@ const Dashboard = () => {
     }, []);
 
     const Listar = () => {
-        fetch(url + '/avaliacao')
+        fetch(url + 'objetivoAluno')
             .then(response => response.json())
             .then(data => {
                 setObjetivosAluno(data.data);
@@ -30,7 +30,7 @@ const Dashboard = () => {
     //const Excluir = (event) => {
     //    event.preventDefault();
 
-    //    fetch(`${url}/dashboard/${event.target.value}`,{
+    //    fetch(`${url}dashboard/${event.target.value}`,{
     //        method : 'DELETE',
     //        headers : {
     //            'authorization' : 'Baerer ' + localStorage.getItem('token-edux')
@@ -48,7 +48,7 @@ const Dashboard = () => {
     const Editar = (event) => {
         event.preventDefault();
 
-        fetch(`${url}/professor/avaliacao/${event.target.value}`, {
+        fetch(`${url}professor/avaliacao/${event.target.value}`, {
             method : 'GET'
         })
         .then(response => response.json())
@@ -68,7 +68,7 @@ const Dashboard = () => {
 
     //    formdata.append('objetivo.Imagem', event.target.files[0]);
 
-    //    fetch(`${url}'/objetivo/${event.target.value}`,{
+    //    fetch(`${url}'objetivo/${event.target.value}`,{
     //        method : 'POST',
     //        body : formdata
     //    })
@@ -87,10 +87,11 @@ const Dashboard = () => {
         const objAluno = {
             nota : nota,
             objetivos : objetivos,
+            turma : turma
         }
 
         let method = (id === 0 ? 'POST' : 'PUT');
-        let urlRequest = (id === 0 ? `${url}/professor/avaliacao` : `${url}/professor/avaliacao/${id}`);
+        let urlRequest = (id === 0 ? `${url}professor/avaliacao` : `${url}professor/avaliacao/${id}`);
 
         fetch(urlRequest, {
             method : method,
@@ -112,6 +113,7 @@ const Dashboard = () => {
     const limparCampos = () => {
         setId(0);
         setNota('');
+        setTurma('');
         setObjetivos('');
     }
 
@@ -130,6 +132,7 @@ const Dashboard = () => {
                                     <Form.Control type="text" value={objetivos} onChange={event => setObjetivos(event.target.value)} placeholder="Objetivo enviado"></Form.Control>
                                 </Form.Group>
 
+                                
                                 <Form.Group controlId="formBasicNota">
                                     <Form.Label>Nota</Form.Label>
                                     <Form.Control type="number" value={nota} onChange={event => setNota(event.target.value)} placeholder="Defina a nota do objetivo"></Form.Control>

@@ -17,7 +17,7 @@ const TimeLine = () => {
     }, []);
 
     const Listar = () => {
-        fetch(url + '/dica')
+        fetch(url + 'dica')
             .then(response => response.json())
             .then(data => {
                 setDica(data.data);
@@ -32,7 +32,7 @@ const TimeLine = () => {
 
         formdata.append('IdUsuario', localStorage.getItem('idUsuario'));
         formdata.append('IdDica', idDica);
-        fetch(url + '/curtida', {
+        fetch(url + 'curtida', {
             method: 'POST',
             body: formdata,
         })
@@ -51,7 +51,7 @@ const TimeLine = () => {
 
         formdata.append('IdUsuario', localStorage.getItem('idUsuario'));
         formdata.append('Texto', texto);
-        fetch(url + '/dica', {
+        fetch(url + 'dica', {
             method: 'POST',
             body: formdata,
         })
@@ -70,7 +70,7 @@ const TimeLine = () => {
                 <h1 className='text-center'>TimeLine</h1>
 
                 <Card>
-                    <Card.Header>Ajude os outros :), dando sua dica</Card.Header>
+                    <Card.Header>Ajude os outros dando suas dicas :)</Card.Header>
                     <Card.Body>
                         <Form>
                             <Form.Group controlId="formBasicTexto">

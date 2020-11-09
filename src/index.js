@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import jwt_decode from 'jwt-decode'
-import Avaliacao from './pages/professor/dashboard'
+import CrudCurso from './pages/admin/crudCurso'
+import CrudInstituicao from './pages/admin/crudInstituicao'
+import Avaliacao from './pages/professor/avaliacao'
+import CadastroTurma from './pages/professor/turma'
 import TimeLine from './pages/timeline'
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -39,13 +42,27 @@ import NaoEncontrado from './pages/naoencontrado/naoencontrado';
     />
   );  
 
+  const RotaAdmin = ({component : Component, ...rest}) => (
+    <Route 
+      {...rest}
+      render= { props => 
+          localStorage.getItem('token-edux') !==null && jwt_decode(localStorage.getItem('token-edux')).permissao === 'Admin' ?
+          <Component {...props} /> :
+          <Redirect to={{ pathname : '/login', state :{from : props.location}}} />
+        }
+    />
+  );  
+
 //Rotas da aplicação
 const routing = (
   <Router>
     <Switch>
+      <RotaAdmin path='/crudInstituicao' component={CrudInstituicao} />
+      <RotaAdmin path='/crudCursos' component={CrudCurso} />
       <Route exact path='/' component={Home} />
       <RotaPrivada path='/perfil' component={PerfilAluno} />
       <RotaPrivadaProfessor path='/professor/perfil' component={PerfilProfessor} />
+      <RotaPrivadaProfessor path='/cadastroTurma' component={CadastroTurma} />
       <Route path='/login' component={Login} />
       <Route path='/cadastrar' component={Cadastrar} />
       <Route path='/turma' component={Turma} />

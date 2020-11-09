@@ -16,7 +16,7 @@ const PerfilAluno = () => {
  
     const token = localStorage.getItem('token-edux');
         const Listar = () => {
-            fetch(url + '/AlunoTurma')
+            fetch(url + 'AlunoTurma')
                 .then(response => response.json())
                 .then(data => {
                     setAlunoTurma(data.data);

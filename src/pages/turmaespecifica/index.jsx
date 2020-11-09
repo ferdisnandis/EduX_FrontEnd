@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Menu from '../../components/menu'
 import Rodape from '../../components/rodape'
-import './index.css'
+import './Index.css'
 import { Container, Jumbotron, ListGroup, Card, Button, Col, Row, Form, } from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal'
-import './Index.css'
 import { url } from '../../utils/constant'
 
 
@@ -25,7 +24,7 @@ const Turma = () => {
     }, [])
 
     const getRanking = () => {
-        fetch(url + '/objetivoaluno/ranking')
+        fetch(url + 'objetivoaluno/ranking')
             .then(response => response.json())
             .then(data => {
                 setRanking(data)
@@ -37,7 +36,7 @@ const Turma = () => {
     const getAlunoTurmaByEmail = () => {
         let email = localStorage.getItem('email')
         console.log(email);
-        fetch(url + `/alunoturma/GetByEmail/${email}`)
+        fetch(url + 'alunoturma/GetByEmail/' + `${email}`)
             .then(response => response.json())
             .then(data => {
                 listarPendente(data.id)
@@ -46,7 +45,7 @@ const Turma = () => {
     }
 
     const listarRealizado = (id) => {
-        fetch(url + '/objetivoaluno/ListarObjetivosPorAluno/' + id + '/false')
+        fetch(url + 'objetivoaluno/ListarObjetivosPorAluno/' + id + '/false')
             .then(response => response.json())
             .then(data => {
                 setRealizado(data)
@@ -55,7 +54,7 @@ const Turma = () => {
             .catch(err => console.error(err));
     }
     const listarPendente = (id) => {
-        fetch(url + '/objetivoaluno/ListarObjetivosPorAluno/' + id + '/true')
+        fetch(url + 'objetivoaluno/ListarObjetivosPorAluno/' + id + '/true')
             .then(response => response.json())
             .then(data => {
                 setPendente(data)
@@ -75,7 +74,7 @@ const Turma = () => {
 
         formdata.append('objetivoAluno.Imagem', arquivo);
         console.log(event.id);
-        fetch(url + '/objetivoAluno/' + id, {
+        fetch(url + 'objetivoAluno/' + id, {
             method: 'PUT',
             body: formdata
         })

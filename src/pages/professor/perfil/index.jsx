@@ -16,7 +16,7 @@ const PerfilProf = () => {
  
     const token = localStorage.getItem('token-edux');
         const Listar = () => {
-            fetch(url + '/ProfessorTurma')
+            fetch(url + 'ProfessorTurma')
                 .then(response => response.json())
                 .then(data => {
                     setProfessorTurma(data.data);

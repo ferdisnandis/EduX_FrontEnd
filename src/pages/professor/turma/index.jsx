@@ -1,26 +1,23 @@
-  
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {Card, Form, Button, Container, Table } from 'react-bootstrap';
 import Menu from '../../../components/menu'
 import Rodape from '../../../components/rodape'
 import {url} from '../../../utils/constant'
+import Turma from '../../turmaespecifica';
 
-const CrudObjetivos = () => {
+const CrudTurma = () => {
     const [id, setId ] = useState(0);
     const [descricao, setDescricao] = useState('');
-    const [categoria, setCategoria] = useState('');
-    const [objetivos, setObjetivos] = useState([]);
-
-    useEffect(() => {
-        Listar();
-    }, []);
-
+    const [Curso, setCurso] = useState('');
+    const [turma, setTurma] = useState([]);
+    const [instituicao, setInstituicao] = useState('');
+    
     const Listar = () => {
-        fetch(url + 'Objetivo')
+        fetch(url + 'Turma')
             .then(response => response.json())
             .then(data => {
                console.log(data.data)
-                setObjetivos(data.data);
+                setTurma(data.data);
                 limparCampos();
         })
         .catch(err => console.error(err));
@@ -28,8 +25,8 @@ const CrudObjetivos = () => {
 
     const Excluir = (event) => {
         event.preventDefault();
-        console.log("remover" + event.target.value)
-        fetch(`${url}` + 'objetivo' + `${event.target.value}`, {
+
+        fetch(`${url}turma/${event.target.value}`, {
             method : 'DELETE',
             headers : {
                 'authorization' : 'Baerer ' + localStorage.getItem('token-edux')
@@ -37,39 +34,38 @@ const CrudObjetivos = () => {
         })
         .then(response => response.json())
         .then(dados => {
-            alert('Objetivo removido');
+            alert('Turma removida');
 
             Listar();
         })
     }
 
-
     const Editar = (event) => {
         event.preventDefault();
 
-        fetch(`${url}objetivo/${event.target.value}`, {
+        fetch(`${url}turma/${event.target.value}`, {
             method : 'GET'
         })
         .then(response => response.json())
         .then(dados => {
             setId(dados.id);
             setDescricao(dados.descricao);
-            setCategoria(dados.categoria);
+            setCurso(dados.Curso);
+            setInstituicao(dados.instituicao);
         })
     }
-
-
 
     const Salvar = (event) => {
         event.preventDefault();
 
         const obj = {
-            categoria : categoria,
+            Curso : Curso,
             descricao : descricao,
+            instituicao : instituicao,
         }
 
         let method = (id === "" ? 'POST' : 'PUT');
-        let urlRequest = (id === "" ? `${url}objetivo` : `${url}objetivo/${id}`);
+        let urlRequest = (id === "" ? `${url}turma` : `${url}turma/${id}`);
 
         fetch(urlRequest, {
             method : method,
@@ -80,7 +76,7 @@ const CrudObjetivos = () => {
         })
         .then(response => response.json())
         .then(dados => {
-            alert('Objetivo salvo');
+            alert('Turma salvo');
 
             Listar();
         })
@@ -92,25 +88,27 @@ const CrudObjetivos = () => {
         setDescricao('');
     }
 
-
-    return (
+    
+    return(
         <div>
             <Menu />
-                <Container>
-                    <h1 className='text-center'>CrudObjetivo</h1>
-                    
+            <Container>
                     <Card>
                         <Card.Body>
                             <Form onSubmit={ event => Salvar(event)}>
                                 <Form.Group controlId="formBasicDescricao">
-                                    <Form.Label>Descrição</Form.Label>
-                                    <Form.Control type="text" value={descricao} onChange={event => setDescricao(event.target.value)} placeholder="Uma breve descrição sobre o objetivo"></Form.Control>
+                                    <Form.Label>Turma</Form.Label>
+                                    <Form.Control type="text" value={descricao} onChange={event => setDescricao(event.target.value)} placeholder="Nome da turma"></Form.Control>
                                 </Form.Group>
 
-                                <Form.Group controlId="exampleForm.ControlSelect1">
-                                <Form.Label>Categoria</Form.Label>
-                                    <Form.Control type="text" value={categoria} onChange={event => setCategoria(event.target.value)} placeholder="Categoria Oculta ou Normal">
-                                    </Form.Control>
+                                <Form.Group controlId="formBasicInstituicao">
+                                <Form.Label>instituicao</Form.Label>
+                                    <Form.Control type="text" value={instituicao} onChange={event => setInstituicao(event.target.value)} placeholder="Instituicao"></Form.Control>
+                                </Form.Group>
+
+                                <Form.Group controlId="formBasicCurso">
+                                    <Form.Label>Curso</Form.Label>
+                                    <Form.Control type="text" value={Curso} onChange={event => setCurso(event.target.value)} placeholder="Curso da turma"></Form.Control>
                                 </Form.Group>
 
                                 <Form.Group>
@@ -122,19 +120,19 @@ const CrudObjetivos = () => {
                     <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>Descricao</th>
-                            <th>Categoria</th>
+                            <th>Título</th>
+                            <th>Curso</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         {
-                            objetivos.map((item, index) => {
+                            turma.map((item, index) => {
                                 return (
                                 <tr key={index}>
                                     <td>{item.descricao}</td>
-                                    <td>{item.categoria}</td>
+                                    <td>{item.id.Titulo}</td>
                                     <td><Button variant="warning" value={item.id} onClick={event => Editar(event)}>Editar</Button>
                                     
                                     <Button variant="danger" value={item.id} onClick={event => Excluir(event)} style={{ marginLeft : '40px'}}>Excluir</Button></td>
@@ -146,8 +144,7 @@ const CrudObjetivos = () => {
                 </Table>
             </Container>
             <Rodape />
-        </div>      
+        </div>
     )
 }
-
-export default CrudObjetivos;
+export default CrudTurma;
