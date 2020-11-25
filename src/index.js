@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Turma from './pages/turmaespecifica';
 import Login from './pages/login';
+import CrudTurma from './pages/admin/crudTurma'
 import CrudObjetivo from './pages/professor/crudObjetivo'
 import Home from './pages/home'
 import PerfilAluno from './pages/perfil'
@@ -59,6 +60,7 @@ const routing = (
     <Switch>
       <RotaAdmin path='/crudInstituicao' component={CrudInstituicao} />
       <RotaAdmin path='/crudCursos' component={CrudCurso} />
+      <RotaAdmin path='/crudTurma' component={CrudTurma} />
       <Route exact path='/' component={Home} />
       <RotaPrivada path='/perfil' component={PerfilAluno} />
       <RotaPrivadaProfessor path='/professor/perfil' component={PerfilProfessor} />

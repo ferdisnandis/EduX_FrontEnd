@@ -54,6 +54,7 @@ const Menu = () => {
           <Nav>
           <Nav.Link href="/crudInstituicao">Instituição</Nav.Link>
           <Nav.Link href="/crudCursos">Cursos</Nav.Link>
+          <Nav.Link href="/crudTurma">Turma</Nav.Link>
           <NavDropdown title={jwt_decode(token).nameid} id="basic-nav-dropdown">
           <NavDropdown.Item href="/perfil">Perfil</NavDropdown.Item>
         <NavDropdown.Divider />

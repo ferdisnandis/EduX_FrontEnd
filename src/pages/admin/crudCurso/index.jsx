@@ -5,24 +5,28 @@ import Rodape from '../../../components/rodape'
 import {url} from '../../../utils/constant'
 
 const CrudCurso = () => {
-    const [idCurso, setIdCurso] = useState(0);
+
+    const [id, setIdCurso] = useState(0);
     const [idInstituicao, setIdInstituicao] = useState(0);
     const [titulo, setTitulo] = useState('');
     const [cursos, setCursos] = useState([]);
     const [instituicoes, setInstituicoes] = useState([]);
 
 useEffect(() => {
-    ListarCursos()
-    ListarInstitiuicao()
+    ListarCursos();
+    ListarInstituicao();
 }, []);
 
-const ListarInstitiuicao = () => {
-    fetch(url + 'instituicao')
+const ListarInstituicao = () => {
+    fetch(url + 'instituicao', {
+        headers : {
+            'authorization' : 'Bearer ' + localStorage.getItem('token-edux')
+        }
+    })
         .then(response => response.json())
         .then(data => {
             setInstituicoes(data.data);
-            console.log(data.data)
-            limparCampos();
+         //   limparCampos();
         })
         .catch(err => console.error(err));
 }
@@ -32,28 +36,28 @@ const ListarCursos = () => {
         .then(response => response.json())
         .then(data => {
             setCursos(data.data);
-            limparCampos();
+        //    limparCampos();
         })
         .catch(err => console.error(err));
 }
 
 const Editar = (event) => {
     event.preventDefault();
+    console.log(event.target.value);
 
-    fetch(`${url}curso/${event.target.value}`)
+    fetch(url + 'curso/' + event.target.value)
         .then(response => response.json())
         .then(dado => {
-            console.log(dado)
-            setIdCurso(dado.idCurso)
-            setIdInstituicao(dado.idInstituicao)
-            setTitulo(dado.titulo)
+            setIdCurso(dado.data.id)
+            setIdInstituicao(dado.data.idInstituicao)
+            setTitulo(dado.data.titulo)
         })
 }
 
 const Excluir = (event) => {
     event.preventDefault();
 
-    console.log(event.target.value)
+    console.log(event.target.value);
 
     fetch(url + 'curso/' + event.target.value, {
         method: 'DELETE',
@@ -62,9 +66,10 @@ const Excluir = (event) => {
         }
     })
         .then(response => response.json())
-        .then(dados => {
+        .then(data => {
             alert('Curso removido!')
-            ListarCursos()
+
+            ListarCursos();
         })
 }
 
@@ -76,8 +81,8 @@ const salvar = (event) => {
         idInstituicao: idInstituicao,
     }
 
-    let method = (idCurso === 0 ? 'POST' : 'PUT')
-    let urlRequest = (idCurso === 0 ? `${url}curso` : `${url}curso/${idCurso}`)
+    let method = (id === 0 ? 'POST' : 'PUT')
+    let urlRequest = (id === 0 ? `${url}curso` : `${url}curso/${id}`)
 
     fetch(urlRequest, {
         method: method,
@@ -133,7 +138,6 @@ return (
                 <Table striped hover>
                     <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Titulo</th>
                             <th>Instituição</th>
                             <th>Ações</th>
@@ -144,12 +148,15 @@ return (
                             cursos.map((item, index) => {
                                 return (
                                     <tr key={index}>
-                                        <td>{item.idCurso}</td>
                                         <td>{item.titulo}</td>
-                                        <td>{item.idInstituicaoNavigation.nome}</td>
+                                        <td>{item.idInstituicao = instituicoes.map((item, index) => {
+                                            return(
+                                                <option key={index} value={item.idInstituicao}>{item.nome}</option>
+                                            )})}
+                                            </td>
                                         <td>
-                                            <Button variant="info" value={item.idCurso} onClick={event => Editar(event)} >Editar</Button>
-                                            <Button variant="danger" value={item.idCurso} onClick={event => Excluir(event)} style={{ marginLeft: '15px' }}>Excluir</Button>
+                                            <Button variant="info" value={item.id} onClick={event => Editar(event)} >Editar</Button>
+                                            <Button variant="danger" value={item.id} onClick={event => Excluir(event)} style={{ marginLeft: '15px' }}>Excluir</Button>
                                         </td>
                                     </tr>
                                 )
