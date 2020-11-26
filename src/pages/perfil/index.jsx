@@ -47,7 +47,7 @@ return (
                                 if (token.idUsuario === alunoTurma.idUsuario){ 
                             return (
                                 <tr key={index}>
-                                    <td>{item.idTurma.Curso}</td>
+                                    <td>{item.id.Curso}</td>
                                 </tr>
                             )}})
                         }

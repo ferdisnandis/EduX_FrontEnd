@@ -54,15 +54,14 @@ const Editar = (event) => {
         .then(response => response.json())
         .then(dado => {
             console.log(dado)
-            setId(dado.data.id)
-            setIdInstituicao(dado.data.idInstituicao)
-            setTitulo(dado.data.titulo)
+            setId(dado.id)
+            setIdInstituicao(dado.idInstituicao)
+            setTitulo(dado.titulo)
         })
 }
 
 const Excluir = (event) => {
     event.preventDefault();
-
     console.log(event.target.value);
 
     fetch(url + 'curso/' + event.target.value, {
@@ -155,11 +154,7 @@ return (
                                 return (
                                     <tr key={index}>
                                         <td>{item.titulo}</td>
-                                        <td>{item.idInstituicao = instituicao.map((item, index) => {
-                                            return(
-                                                <option key={index} value={item.idInstituicao}>{item.nome}</option>
-                                            )})}
-                                            </td>
+                                        <td>{item.instituicao.nome}</td>
                                         <td>
                                             <Button variant="info" value={item.id} onClick={event => Editar(event)} >Editar</Button>
                                             <Button variant="danger" value={item.id} onClick={event => Excluir(event)} style={{ marginLeft: '15px' }}>Excluir</Button>

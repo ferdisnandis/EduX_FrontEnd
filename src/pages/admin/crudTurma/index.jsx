@@ -5,12 +5,11 @@ import Menu from '../../../components/menu'
 import Rodape from '../../../components/rodape'
 
 const CrudTurma = () => {
-    const [idTurma, setIdTurma] = useState('')
-    const [turmas, setTurmas] = useState([])
-    const [descricao, setDescricao ] = useState('');
+    const [id, setId] = useState(0)
     const [idCurso, setIdCurso] = useState(0)
-    const [curso, setCurso] = useState('');
-    const [cursos, setCursos] = useState([]);
+    const [descricao, setDescricao ] = useState('');
+    const [curso, setCurso] = useState([]);
+    const [turmas, setTurmas] = useState([])
 
     useEffect(() => {
         ListarTurmas();;
@@ -22,13 +21,19 @@ const CrudTurma = () => {
         .then(response => response.json())
         .then(data => {
             setTurmas(data.data)
+            console.log(data)
             //LimparCampos();
         })
+        
         .catch(err => console.error(err));
     }
 
     const ListarCursos = () => {
-        fetch(url + 'curso')
+        fetch(url + 'curso', {
+            headers : {
+                'authorization' : 'Bearer ' + localStorage.getItem('token-edux')
+            }
+        })
         .then(response => response.json())
         .then(data => {
             setCurso(data.data)
@@ -39,20 +44,26 @@ const CrudTurma = () => {
 
     const Editar = (event) => {
         event.preventDefault();
+        console.log(event.target.value);
 
-        fetch(`${url}turma/${event.target.value}`)
+        fetch(url + 'turma/' + event.target.value, {
+            method : 'GET',
+            headers : {
+                'authorization' : 'Bearer ' + localStorage.getItem('token-edux')
+            }
+        })
         .then(response => response.json())
         .then(dado => {
             console.log(dado)
-            setIdTurma(dado.IdTurma)
+            setId(dado.id)
             setDescricao(dado.descricao)
-            setCurso(dado.curso)
+            setCurso(dado.idCurso)
         })
     }
 
     const Excluir = (event) => {
         event.preventDefault();
-        console.log(event.target.value)
+        console.log(event.target.value);
 
         fetch(url + 'turma/' + event.target.value, {
             method: 'DELETE',
@@ -61,9 +72,10 @@ const CrudTurma = () => {
             }
         })
         .then(response => response.json())
-        .then(dados => {
+        .then(data => {
+            console.log(data)
             alert('Turma removida')
-            ListarTurmas()
+            ListarTurmas();
         })
     }
 
@@ -74,8 +86,8 @@ const CrudTurma = () => {
             descricao: descricao,
             idCurso: idCurso
         }
-        let method = (idTurma === 0 ? 'POST' : 'PUT')
-        let urlRequest = (idTurma === 0 ? `${url}turma` : `${idTurma}`)
+        let method = (id === 0 ? 'POST' : 'PUT')
+        let urlRequest = (id === 0 ? `${url}turma` : `${url}curso/${id}`)
     
         fetch(urlRequest, {
             method: method,
@@ -93,7 +105,7 @@ const CrudTurma = () => {
     }
 
     const LimparCampos = () => {
-        setIdTurma(0);
+        setId(0);
         setDescricao('');
         setCurso('');
     }
@@ -109,12 +121,12 @@ const CrudTurma = () => {
                     <Form onSubmit={event => Salvar(event)}>
                         <Form.Group controlId="formBasicPerfil">
                             <Form.Label>Cursos</Form.Label>
-                            <Form.Control as="select" size="sg" custom defaultValue={idTurma} onChange={event => setIdCurso(event.target.value)}>
-                                <option value="">Selecione um curso</option>
+                            <Form.Control as="select" value={idCurso} onChange={event => setIdCurso(event.target.value)}>
+                                <option>Selecione um curso</option>
                                 {
-                                    cursos.map((item, index) => {
-                                        return (
-                                            <option key={index} value={item.IdCurso}>{item.titulo}</option>
+                                    curso.map((item, index) => {
+                                        return(
+                                            <option key={index} value={item.id}>{item.titulo}</option>
                                         )
                                     })
                                 }
@@ -133,7 +145,6 @@ const CrudTurma = () => {
             <Table>
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Curso</th>
                         <th>Descrição</th>
                         <th>Ações</th>
@@ -144,12 +155,11 @@ const CrudTurma = () => {
                         turmas.map((item, index) => {
                             return (
                                 <tr jey={index}>
-                                    <td>{item.idTurma}</td>
-                                    <td>{item.idCurso.titulo}</td>
-                                    <td>{item.nome}</td>
+                                    <td>{item.curso.titulo}</td>
+                                    <td>{item.descricao}</td>
                                     <td>
-                                        <Button variant="info" value={item.IdTurma} onClick={event => Editar(event)}>Editar</Button>
-                                        <Button variant="danger" value={item.IdTurma} onClick={event => Excluir(event)}>Excluir</Button>
+                                        <Button variant="info" value={item.id} onClick={event => Editar(event)}>Editar</Button>
+                                        <Button variant="danger" value={item.id} onClick={event => Excluir(event)}>Excluir</Button>
                                     </td>
 
                                 </tr>
