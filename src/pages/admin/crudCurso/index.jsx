@@ -6,11 +6,11 @@ import {url} from '../../../utils/constant'
 
 const CrudCurso = () => {
 
-    const [id, setIdCurso] = useState(0);
+    const [id, setId] = useState(0);
     const [idInstituicao, setIdInstituicao] = useState(0);
     const [titulo, setTitulo] = useState('');
     const [cursos, setCursos] = useState([]);
-    const [instituicoes, setInstituicoes] = useState([]);
+    const [instituicao, setInstituicao] = useState([]);
 
 useEffect(() => {
     ListarCursos();
@@ -25,7 +25,7 @@ const ListarInstituicao = () => {
     })
         .then(response => response.json())
         .then(data => {
-            setInstituicoes(data.data);
+            setInstituicao(data.data);
          //   limparCampos();
         })
         .catch(err => console.error(err));
@@ -45,10 +45,16 @@ const Editar = (event) => {
     event.preventDefault();
     console.log(event.target.value);
 
-    fetch(url + 'curso/' + event.target.value)
+    fetch(url + 'curso/' + event.target.value, {
+        method : 'GET',
+        headers : {
+            'authorization' : 'Bearer ' + localStorage.getItem('token-edux')
+        }
+    })
         .then(response => response.json())
         .then(dado => {
-            setIdCurso(dado.data.id)
+            console.log(dado)
+            setId(dado.data.id)
             setIdInstituicao(dado.data.idInstituicao)
             setTitulo(dado.data.titulo)
         })
@@ -100,7 +106,7 @@ const salvar = (event) => {
 }
 
 const limparCampos = () => {
-    setIdCurso(0);
+    setId(0);
     setIdInstituicao(0);
     setTitulo('');
 }
@@ -120,12 +126,12 @@ return (
                             </Form.Group>
                             <Form.Group controlId="formBasicInstituicao">
                                 <Form.Label>Instituição</Form.Label>
-                                <Form.Control as="select" size="sg" custom defaultValue={idInstituicao} onChange={event => setIdInstituicao(parseInt(event.target.value))}>
-                                    <option value={0}>Selecione uma instituição</option>
+                                <Form.Control as="select" value={idInstituicao} onChange={event => setIdInstituicao(event.target.value)}>
+                                    <option>Selecione uma instituição</option>
                                     {
-                                        instituicoes.map((item, index) => {
+                                        instituicao.map((item, index) => {
                                             return (
-                                                <option key={index} value={item.idInstituicao}>{item.nome}</option>
+                                                <option key={index} value={item.id}>{item.nome}</option>
                                             )
                                         })
                                     }
@@ -149,7 +155,7 @@ return (
                                 return (
                                     <tr key={index}>
                                         <td>{item.titulo}</td>
-                                        <td>{item.idInstituicao = instituicoes.map((item, index) => {
+                                        <td>{item.idInstituicao = instituicao.map((item, index) => {
                                             return(
                                                 <option key={index} value={item.idInstituicao}>{item.nome}</option>
                                             )})}
