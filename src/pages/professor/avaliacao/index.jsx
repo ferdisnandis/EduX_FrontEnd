@@ -6,92 +6,107 @@ import Rodape from '../../../components/rodape'
 import {url} from '../../../utils/constant'
 
 const Dashboard = () => {
+    //Objetivo Aluno
     const [id, setId ] = useState(0);
+    const [idAlunoTurma, setIdAlunoTurma] = useState(0);
+    const [idObjetivo, setIdObjetivo] = useState(0);
     const [nota, setNota] = useState('');
-    const [turma, setTurma] = useState('');
-    const [objetivos, setObjetivos] = useState('');
-    const [objetivosAluno, setObjetivosAluno] = useState([]);
+    const [alunoTurma, setAlunoTurma] = useState([]);
+    const [objetivo, setObjetivo] = useState([]);
+    const [objetivoAluno, setObjetivoAluno] = useState([]);
 
     useEffect(() => {
-        Listar();
+        ListarAlunoTurma();
+        ListarObjetivo();
+        ListarObjetivoAluno();
     }, []);
 
-    const Listar = () => {
+    const ListarObjetivoAluno = () => {
         fetch(url + 'objetivoAluno')
             .then(response => response.json())
             .then(data => {
-                setObjetivosAluno(data.data);
+                setObjetivoAluno(data.data);
                 console.log(data.data);
                 limparCampos();
         })
         .catch(err => console.error(err));
     }
 
-    //const Excluir = (event) => {
-    //    event.preventDefault();
+    const ListarAlunoTurma = () => {
+        fetch(url + 'AlunoTurma', {
+            headers : {
+                'authorization' : 'Bearer ' + localStorage.getItem('token-edux')
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                setAlunoTurma(data.data);
+             //   limparCampos();
+            })
+            .catch(err => console.error(err));
+    }
 
-    //    fetch(`${url}dashboard/${event.target.value}`,{
-    //        method : 'DELETE',
-    //        headers : {
-    //            'authorization' : 'Baerer ' + localStorage.getItem('token-edux')
-    //        }
-    //    })
-    //    .then(response => response.json())
-    //    .then(dados => {
-    //        alert('Objetivo Aluno removido');
+    const ListarObjetivo = () => {
+        fetch(url + 'Objetivo', {
+            headers : {
+                'authorization' : 'Bearer ' + localStorage.getItem('token-edux')
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                setObjetivo(data.data);
+             //   limparCampos();
+            })
+            .catch(err => console.error(err));
+    }
 
-   //         Listar();
-   //     })
-   // }
+    const Excluir = (event) => {
+        event.preventDefault();
+
+        fetch(url + 'objetivoAluno/' + event.target.value, {
+            method : 'DELETE',
+            headers : {
+                'authorization' : 'Baerer ' + localStorage.getItem('token-edux')
+            }
+        })
+        .then(response => response.json())
+        .then(dados => {
+            alert('Objetivo Aluno removido');
+
+            ListarObjetivoAluno();
+        })
+    }
 
 
     const Editar = (event) => {
         event.preventDefault();
 
-        fetch(`${url}professor/avaliacao/${event.target.value}`, {
-            method : 'GET'
+        fetch(url + 'objetivoAluno/' + event.target.value, {
+            method : 'GET',
+            headers : {
+                'authorization' : 'Bearer ' + localStorage.getItem('token-edux')
+            }
         })
         .then(response => response.json())
-        .then(dados => {
-            setNota(dados.nota);
+        .then(dado => {
+            setId(dado.id)
+            setIdAlunoTurma(dado.idAlunoTurma)
+            setIdObjetivo(dado.idObjetivo)
+            setNota(dado.nota);
         })
     }
 
-    //const keepFile = (event) => {
-    //    setImagem(event.target.files[0]);
-    //}
-
-    //const uploadFile = (event) => {
-    //    event.preventDefault();
-
-    //    let formdata = new FormData();
-
-    //    formdata.append('objetivo.Imagem', event.target.files[0]);
-
-    //    fetch(`${url}'objetivo/${event.target.value}`,{
-    //        method : 'POST',
-    //        body : formdata
-    //    })
-    //    .then(response => response.json())
-    //    .then(data => {
-    //        console.log(data)
-            //setUrlImagem(data.url);
-    //    })
-    //    .catch(err => console.log(err))
-    //    window.location.reload();
-    //}
-
     const Salvar = (event) => {
         event.preventDefault();
-
+        
         const objAluno = {
             nota : nota,
-            objetivos : objetivos,
-            turma : turma
+            idObjetivo : idObjetivo,
+            idAlunoTurma : idAlunoTurma,
         }
 
         let method = (id === 0 ? 'POST' : 'PUT');
-        let urlRequest = (id === 0 ? `${url}professor/avaliacao` : `${url}professor/avaliacao/${id}`);
+        let urlRequest = (id === 0 ? `${url}objetivoAluno` : `${url}objetivoAluno/${id}`);
 
         fetch(urlRequest, {
             method : method,
@@ -101,20 +116,20 @@ const Dashboard = () => {
                 'authorization' : 'Bearer ' + localStorage.getItem('token-edux')
             }
         })
+        
         .then(response => response.json())
-        .then(dados => {
+        .then(dado => {
             alert('Objetivo salvo');
-
-            Listar();
+            
+            ListarObjetivoAluno();
         })
-        .catch(err => console.error(err))
     }
 
     const limparCampos = () => {
         setId(0);
         setNota('');
-        setTurma('');
-        setObjetivos('');
+        setIdAlunoTurma(0);
+        setIdObjetivo(0);
     }
 
 
@@ -127,15 +142,39 @@ const Dashboard = () => {
                     <Card>
                         <Card.Body>
                             <Form onSubmit={ event => Salvar(event)}>
+
                                 <Form.Group controlId="formBasicDescricao">
                                     <Form.Label>Objetivo</Form.Label>
-                                    <Form.Control type="text" value={objetivos} onChange={event => setObjetivos(event.target.value)} placeholder="Objetivo enviado"></Form.Control>
+                                    <Form.Control as="select" value={idObjetivo} onChange={event => setIdObjetivo(event.target.value)} placeholder="Objetivo enviado">
+                                    <option>Selecione um objetivo</option>
+                                    {
+                                        objetivo.map((item, index) => {
+                                            return(
+                                                <option key={index} value={item.id}>{item.descricao}</option>
+                                            )
+                                        })
+                                    }
+                                    </Form.Control>
+                                </Form.Group>
+
+                                <Form.Group controlId="formBasicAlunoTurma">
+                                    <Form.Label>Aluno</Form.Label>
+                                    <Form.Control as="select" value={idAlunoTurma} onChange={event => setIdAlunoTurma(event.target.value)} placeholder="Selecione o Aluno">
+                                    <option>Selecione um aluno</option>
+                                    {
+                                        alunoTurma.map((item, index) => {
+                                            return(
+                                                <option key={index} value={item.id}>{item.usuario.nome}</option>
+                                            )
+                                        })
+                                    }
+                                    </Form.Control>
                                 </Form.Group>
 
                                 
                                 <Form.Group controlId="formBasicNota">
                                     <Form.Label>Nota</Form.Label>
-                                    <Form.Control type="number" value={nota} onChange={event => setNota(event.target.value)} placeholder="Defina a nota do objetivo"></Form.Control>
+                                    <Form.Control type="text" value={nota} onChange={event => setNota(event.target.value)} placeholder="Defina a nota do objetivo"></Form.Control>
                                     <Button type="submit">Salvar</Button>
                                 </Form.Group>
                             </Form>
@@ -145,7 +184,6 @@ const Dashboard = () => {
                     <thead>
                         <tr>
                             <th>Objetivo</th>
-                            <th>Turma</th>
                             <th>Aluno</th>
                             <th>Nota</th>
                             <th>Ações</th>
@@ -154,14 +192,16 @@ const Dashboard = () => {
 
                     <tbody>
                         {
-                            objetivosAluno.map((item, index) => {
+                            objetivoAluno.map((item, index) => {
                                 return (
                                 <tr key={index}>
-                                    <td>{item.Objetivos}</td>
-                                    <td>{item.Turma}</td>
-                                    <td>{item.aluno}</td>
+                                    <td>{item.objetivo.descricao}</td>
+                                    <td>{item.alunoTurma.usuario.nome}</td>
                                     <td>{item.nota}</td>
-                                    <td><Button variant="warning" value={item.id} onClick={event => Editar(event)}>Editar</Button></td>
+                                    <td>
+                                    <Button variant="info" value={item.id} onClick={event => Editar(event)}>Editar</Button>
+                                    <Button variant="warning" value={item.id} onClick={event => Excluir(event)}>Excluir</Button>
+                                    </td>
                                 </tr>
                                 )
                             })

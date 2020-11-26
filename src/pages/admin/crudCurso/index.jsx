@@ -124,6 +124,7 @@ return (
                                 <Form.Control type="text" value={titulo} onChange={event => setTitulo(event.target.value)} placeholder="Digite o nome" />
                             </Form.Group>
                             <Form.Group controlId="formBasicInstituicao">
+
                                 <Form.Label>Instituição</Form.Label>
                                 <Form.Control as="select" value={idInstituicao} onChange={event => setIdInstituicao(event.target.value)}>
                                     <option>Selecione uma instituição</option>
@@ -136,6 +137,7 @@ return (
                                     }
                                 </Form.Control>
                             </Form.Group>
+                            
                             <Button type="submit">Salvar</Button>
                         </Form>
                     </Card.Body>

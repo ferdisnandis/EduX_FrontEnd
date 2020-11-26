@@ -3,13 +3,15 @@ import jwt_decode from 'jwt-decode'
 import CrudCurso from './pages/admin/crudCurso'
 import CrudInstituicao from './pages/admin/crudInstituicao'
 import Avaliacao from './pages/professor/avaliacao'
-import CadastroTurma from './pages/professor/turma'
+import CrudProfessorTurma from './pages/professor/CrudProfessorTurma'
 import TimeLine from './pages/timeline'
+import CrudUsuario from './pages/admin/crudUsuario'
+import CrudAlunoTurma from './pages/admin/crudAlunoTurma'
 import ReactDOM from 'react-dom';
 import './index.css';
 import Turma from './pages/turmaespecifica';
 import Login from './pages/login';
-import CrudTurma from './pages/admin/crudTurma'
+import CrudTurma from './pages/professor/crudTurma'
 import CrudObjetivo from './pages/professor/crudObjetivo'
 import Home from './pages/home'
 import PerfilAluno from './pages/perfil'
@@ -60,11 +62,13 @@ const routing = (
     <Switch>
       <RotaAdmin path='/crudInstituicao' component={CrudInstituicao} />
       <RotaAdmin path='/crudCursos' component={CrudCurso} />
-      <RotaAdmin path='/crudTurma' component={CrudTurma} />
+      <RotaAdmin path='/crudUsuario' component={CrudUsuario} />
+      <RotaAdmin path='/crudAlunoTurma' component={CrudAlunoTurma} />
       <Route exact path='/' component={Home} />
       <RotaPrivada path='/perfil' component={PerfilAluno} />
+      <RotaPrivadaProfessor path='/professor/turma' component={CrudTurma} />
       <RotaPrivadaProfessor path='/professor/perfil' component={PerfilProfessor} />
-      <RotaPrivadaProfessor path='/cadastroTurma' component={CadastroTurma} />
+      <RotaPrivadaProfessor path='/professor/professorTurma' component={CrudProfessorTurma} />
       <Route path='/login' component={Login} />
       <Route path='/cadastrar' component={Cadastrar} />
       <Route path='/turma' component={Turma} />

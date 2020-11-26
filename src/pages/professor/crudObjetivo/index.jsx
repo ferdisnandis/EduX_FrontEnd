@@ -7,39 +7,51 @@ import {url} from '../../../utils/constant'
 
 const CrudObjetivos = () => {
     const [id, setId ] = useState(0);
+    const [idCategoria, setIdCategoria] = useState(0);
     const [descricao, setDescricao] = useState('');
-    const [categoria, setCategoria] = useState('');
+    const [categoria, setCategoria] = useState([]);
     const [objetivos, setObjetivos] = useState([]);
 
     useEffect(() => {
-        Listar();
+        ListarObjetivos();
+        ListarCategorias();
     }, []);
 
-    const Listar = () => {
+    const ListarObjetivos = () => {
         fetch(url + 'Objetivo')
             .then(response => response.json())
             .then(data => {
                console.log(data.data)
                 setObjetivos(data.data);
-                limparCampos();
+           //     limparCampos();
+        })
+        .catch(err => console.error(err));
+    }
+
+    const ListarCategorias = () => {
+        fetch(url + 'categoria')
+        .then(response => response.json())
+        .then(data => {
+            setCategoria(data.data)
         })
         .catch(err => console.error(err));
     }
 
     const Excluir = (event) => {
         event.preventDefault();
-        console.log("remover" + event.target.value)
-        fetch(`${url}` + 'objetivo' + `${event.target.value}`, {
+        console.log(event.target.value)
+
+        fetch(url + 'objetivo/' + event.target.value, {
             method : 'DELETE',
             headers : {
                 'authorization' : 'Baerer ' + localStorage.getItem('token-edux')
             }
         })
         .then(response => response.json())
-        .then(dados => {
+        .then(data => {
             alert('Objetivo removido');
 
-            Listar();
+            ListarObjetivos();
         })
     }
 
@@ -47,14 +59,14 @@ const CrudObjetivos = () => {
     const Editar = (event) => {
         event.preventDefault();
 
-        fetch(`${url}objetivo/${event.target.value}`, {
+        fetch(url + 'objetivo/' + event.target.value, {
             method : 'GET'
         })
         .then(response => response.json())
         .then(dados => {
             setId(dados.id);
             setDescricao(dados.descricao);
-            setCategoria(dados.categoria);
+            setCategoria(dados.idCategoria);
         })
     }
 
@@ -64,25 +76,26 @@ const CrudObjetivos = () => {
         event.preventDefault();
 
         const obj = {
-            categoria : categoria,
+            idCategoria : idCategoria,
             descricao : descricao,
         }
 
-        let method = (id === "" ? 'POST' : 'PUT');
-        let urlRequest = (id === "" ? `${url}objetivo` : `${url}objetivo/${id}`);
+        let method = (id === 0 ? 'POST' : 'PUT');
+        let urlRequest = (id === 0 ? `${url}objetivo` : `${url}objetivo/${id}`);
 
         fetch(urlRequest, {
             method : method,
             body : JSON.stringify(obj),
             headers : {
-                'content-type' : 'application/json'
+                'content-type' : 'application/json',
+                'authorization' : 'Bearer ' + localStorage.getItem('token-edux')
             }
         })
         .then(response => response.json())
         .then(dados => {
             alert('Objetivo salvo');
 
-            Listar();
+            ListarObjetivos();
         })
         .catch(err => console.error(err))
     }
@@ -109,7 +122,15 @@ const CrudObjetivos = () => {
 
                                 <Form.Group controlId="exampleForm.ControlSelect1">
                                 <Form.Label>Categoria</Form.Label>
-                                    <Form.Control type="text" value={categoria} onChange={event => setCategoria(event.target.value)} placeholder="Categoria Oculta ou Normal">
+                                    <Form.Control as="select" value={idCategoria} onChange={event => setIdCategoria(event.target.value)} placeholder="Categoria Oculta ou Normal">
+                                        <option>Selecione uma categoria</option>
+                                        {
+                                            categoria.map((item, index) => {
+                                                return (
+                                                    <option key={index} value={item.id}>{item.tipo}</option>
+                                                )
+                                            })
+                                        }
                                     </Form.Control>
                                 </Form.Group>
 
@@ -134,7 +155,7 @@ const CrudObjetivos = () => {
                                 return (
                                 <tr key={index}>
                                     <td>{item.descricao}</td>
-                                    <td>{item.categoria}</td>
+                                    <td>{item.categoria.tipo}</td>
                                     <td><Button variant="warning" value={item.id} onClick={event => Editar(event)}>Editar</Button>
                                     
                                     <Button variant="danger" value={item.id} onClick={event => Excluir(event)} style={{ marginLeft : '40px'}}>Excluir</Button></td>

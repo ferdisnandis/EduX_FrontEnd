@@ -30,6 +30,8 @@ const Menu = () => {
         <Nav.Link href="/professor/avaliacao">Avaliação</Nav.Link>
          <Nav.Link href="/objetivo">Objetivo</Nav.Link>
          <Nav.Link href="/timeline">Timeline</Nav.Link>
+         <Nav.Link href="/professor/professorTurma">Professor Turma</Nav.Link>
+         <Nav.Link href="/professor/turma">Turma</Nav.Link>
           <NavDropdown title={jwt_decode(token).nameid} id="basic-nav-dropdown">
         <NavDropdown.Item href="/perfil">Perfil</NavDropdown.Item>
         <NavDropdown.Divider />
@@ -54,7 +56,8 @@ const Menu = () => {
           <Nav>
           <Nav.Link href="/crudInstituicao">Instituição</Nav.Link>
           <Nav.Link href="/crudCursos">Cursos</Nav.Link>
-          <Nav.Link href="/crudTurma">Turma</Nav.Link>
+          <Nav.Link href="/crudUsuario">Usuário</Nav.Link>
+          <Nav.Link href="/crudAlunoTurma">AlunoTurma</Nav.Link>
           <NavDropdown title={jwt_decode(token).nameid} id="basic-nav-dropdown">
           <NavDropdown.Item href="/perfil">Perfil</NavDropdown.Item>
         <NavDropdown.Divider />
